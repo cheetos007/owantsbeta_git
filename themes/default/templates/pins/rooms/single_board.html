@@ -1,0 +1,50 @@
+{% extends "site_base.html" %}
+{% load i18n sorl_thumbnail %}
+
+
+{% block head_title %}{{board}}/{{board.category}}{% endblock %}
+    {% block extra_css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/pins.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/pins/boards.css">
+    {% endblock %}
+{% block extra_js %}
+  {% include "pins/_pin_grid_js.html" %}
+
+      <script>
+        $(function() {
+            $("#edit-profile-box").modal({
+                backdrop: true
+            });
+        });
+         $("#follow_button, #unfollow_button").click(function () {
+            $.post($(this).attr("href"), {});
+            $(this).parent().find("#follow_button, #unfollow_button").toggle();
+            return false
+        });
+    </script>
+{% endblock %}
+
+{% block extra_body %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="main-content-layout">
+        <div class="top-info-bar">
+            <h1>{{board}} / {{board.category}}</h1>
+            {% with b=board %}
+                {% include "pins/rooms/_follow_button.html" %}
+            {% endwith %}
+            <div class="clear">&nbsp;</div>
+            {% if request.user == board.user %}
+                <a class="btn danger round-corners" href="{% url delete_board board.pk %}">{% trans "Delete board" %}</a>
+                <a class="btn round-corners" href="{% url edit_board board.pk %}">{% trans "Edit board" %}</a>
+            {% endif %}
+        </div>
+
+
+    <ul id="pin-grid">
+        {% include "pins/_pin_list.html" %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+ {% load i18n %}
+ <div id="blank-pin-template">
+ <div class="pin-main-box">
+    <div class="pin-head-wrapper">
+      <div class="pin-image-options">
+        <div>
+                <a class="pin-popup-link" href="__pin.get_popup_url__"><img src="__im.url__" class="thumbnail" width="__im.width__" height="__im.height__"></a>
+        </div>
+        <br class="clear" />
+        <div class="options-buttons">
+            <a href="#" title="{% trans "Repin" %}" data-pin-pk="__pin.pk__" class="option-button repin-pin">
+              <span class="option-repin">{% trans "Repin" %} (__pin.get_number_of_repins__)</span>
+            </a>
+            <a href="#" title="{% trans "Like" %}" data-pin-pk="__pin.pk__" class="option-button like-pin">
+              <span class="option-like">{% trans "Like" %} (<span class="number">__pin.get_number_of_likes__</span>)</span>
+            </a>
+          <br class="clear" />
+        </div>
+        <br class="clear" />
+      </div>
+          <br class="clear" />
+          <p class="pin-content">__pin.description__</p>
+    </div>
+    <div class="pin-comments">
+      <div class="pin-comment-box pin-comment-__comment.color__">
+          <img src="__comment.im.url__" class="user-thumbnail" width="__comment.im.width__" height="__comment.im.height__"/>
+        <p>__comment.comment__</p>
+        <br class="clear" />
+      </div>
+    </div>
+
+    <div class="pin-box-bottom">
+      <p>
+        <a href="__pin.get_absolute_url__#comments" title="{% trans "All comments" %}">{% trans "See all comments" %}</a>
+      </p>
+    </div>
+  </div>
+</div>

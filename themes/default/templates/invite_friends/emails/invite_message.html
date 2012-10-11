@@ -1,0 +1,12 @@
+{% extends "base_email.html" %}
+{% load i18n setting_tags %}
+
+{% block content %}
+	{% site_setting "site_name" as site_name %}
+	{% blocktrans with user_name=invite.user.get_full_name domain=site.domain url=invite.get_absolute_url%}
+	Hey,<br/>
+	You have been invited by {{user_name}} to join {{site_name}}- a fun way to share something you love!<br/>
+	If you wish to accept the invitation <a href="http://{{domain}}{{url}}">please proceed.</a>
+
+	{% endblocktrans %}
+{% endblock %}

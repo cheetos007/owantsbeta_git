@@ -1,0 +1,126 @@
+{% load compress setting_tags i18n sekizai_tags %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block head_title_base %}{% block head_title %}{% endblock %}{% if SITE_NAME %} : {{ SITE_NAME }}{% endif %}{% endblock %}</title>
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+
+        <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+        {% compress css %}
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/style.css" />
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/application-style.css" />
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqtransform.css" />
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pin_it.css">
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/colorbox.css">
+            {% block extra_css %}{% endblock %}
+        {% endcompress %}
+        <!--[if lt IE 7]>
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/style-ie.css" />
+        <![endif]-->
+        {% block extra_head_base %}
+            {% block extra_head %}{% endblock %}
+        {% endblock %}
+
+        {% block analytics %}
+            {% site_setting "google_analytics_tracking_id" as google_analytics_tracking_id %}
+            {% if google_analytics_tracking_id %}
+                <script type="text/javascript">
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', '{{google_analytics_tracking_id}}']);
+              _gaq.push(['_trackPageview']);
+
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+
+            </script>
+            {% endif %}
+        {% endblock %}
+</head>
+    <body class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
+    <div id="maincontainer">
+        {% block topbar_base %}
+            <div id="header">
+                <div id="header-wraper">
+                        {% block topbar %}
+                            <a href="/">
+                                {% site_logo %}
+                            </a>
+                            <div class="divider" >&nbsp;</div>
+                            {% block nav %}
+
+                            {% endblock %}
+                            {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+                        {% endblock %}
+                    </div>
+                </div>
+        {% endblock %}
+
+ {% block body_base %}
+        <div id="contentwrapper">
+            {% include "_messages.html" %}
+            {% block body %}
+            {% endblock %}
+        </div>
+        <div class="clear">&nbsp;</div>
+    {% endblock %}
+    
+    {% block footer_base %}
+        <div id="footer">
+            <div id="footer-box">{% block footer %}{% endblock %}</div>
+        </div>
+    {% endblock %}
+    
+    {% block extra_body_base %}
+        {% block extra_body %}{% endblock %}
+    {% endblock %}
+
+
+    </div><!--end #maincontainer-->
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-1.7.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.form.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.wookmark.js"></script>
+        <script type="text/javascript">
+        var PIN_UPLOAD_URL = "{% url upload_pin %}";
+        var WEBSITE_IMAGES_URL = "{% url website_media %}";
+        var PIN_INFORMATION_URL = "{% url pin_information %}";
+        var LOGIN_URL = "{% url acct_login %}";
+        var LIKE_PIN_URL = "{% url like_pin %}";
+        var USER_LOGGED_IN = {% if request.user.is_anonymous %}false;{% else %}true;{% endif %}
+        </script>
+        <script src="{{ STATIC_URL }}js/utils.js"></script>
+        <script src="{{ STATIC_URL }}js/ajaxupload.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.colorbox-min.js"></script>
+        <script src="{{ STATIC_URL }}js/pins/popup.js"></script>
+        <script src="{{ STATIC_URL }}js/pins/upload.pins.js"></script>
+        <script src="{{ STATIC_URL }}js/pins/url.pin.js"></script>
+        <script src="{{ STATIC_URL }}js/pins/repin.js"></script>
+        <script src="{{ STATIC_URL }}js/pins/like.pin.js"></script>
+        <script src="{{ STATIC_URL }}js/curvycorners.js"  ></script>
+        <script src="{{ STATIC_URL }}js/corners.init.js"  ></script>
+        <script src="{{ STATIC_URL }}js/jquery.jqtransform.js"></script>
+        <script src="{{ STATIC_URL }}js/forms.js"></script>
+        <script src="{{ STATIC_URL }}js/dropdown.js"></script>
+
+        {% block extra_js %}{% endblock %}
+
+        {% endcompress %}
+        {% render_block "js" %}
+    </body>
+    </html>
+
+   
+        
+
+        
+       
+    </body>
+</html>

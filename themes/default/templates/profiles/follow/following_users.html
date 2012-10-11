@@ -1,0 +1,34 @@
+{% extends "profiles/follow/follow_base.html" %}
+{% load pagination_tags i18n sorl_thumbnail activity_stream  activity_tags %}
+
+{% block list %}
+    {% autopaginate user_list %}
+    {% get_user_contenttype as ctype %}
+    <div id="board-info-box" class="following-users">
+        <ul id="board-categories">
+            {% for u in user_list %}
+            <li class="categ-box">
+                <div class="categ-box-wraper">
+                <h3 class="boar-box-title"><a href="{{u.get_absolute_url}}" class="board-title">{{u.get_full_name}}</h3>
+
+                    <div>
+                        <a href="{{u.get_absolute_url}}">
+                            {% thumbnail u.get_profile.image "200x200" crop="center" as im %}
+                                <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                            {% endthumbnail %}
+                        </a>
+                    </div>
+                <br class="clear" />
+
+<a href="{% url actstream_unfollow content_type_id=ctype.pk  object_id=u.pk %}" 
+id="unfollow_button" class="round-corners board-follow-button">{% trans "Unfollow" %}</a>
+                <div class="clear">&nbsp;</div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="clear">&nbsp;</div>
+    </div>
+    
+    {% paginate %}    
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "account/base.html" %}
+
+{% load i18n cms_tags %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block body %}
+
+    {% include "account/_social_auth.html" %}
+
+<div class="login-form">
+    <form action="" method="post" class="jqtransform"> {% csrf_token %}
+     {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <fieldset>
+             {% if form.non_field_errors %}
+                <dl><dd>
+                    {{form.non_field_errors}}
+                    </dd>
+                </dl>
+            {% endif %}
+            <dl>
+                <dt><label for="username" class="userName">&nbsp;</label></dt>
+                <dd>{{form.username}}
+                    {{form.username.errors}}</dd>
+                
+            </dl>
+            <dl>
+                <dt><label for="pass" class="password">&nbsp;</label></dt>
+                <dd>{{form.password}}
+                    {{form.password.errors}}</dd>
+            </dl>
+            <dl>
+                <dt><label for="email" class="email">&nbsp;</label></dt>
+                <dd>{{form.email}}
+                    {{form.email.errors}}</dd>
+            </dl>
+            <dl>
+                <dt><label for="pass">&nbsp;</label></dt>
+                <dd class="terms">
+
+		{% trans "By clicking the button, you agree to our" %} <span>
+		
+		
+		</span></dd>
+            </dl>
+            <dl>
+                <dt><label for="pass">&nbsp;</label></dt>
+                <dd class="subm-button"><input type="submit" value="{% trans "Create My Account" %}"/></dd>
+            </dl>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

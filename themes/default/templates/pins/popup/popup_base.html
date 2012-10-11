@@ -1,0 +1,19 @@
+<div id="{% block popup_id %}maincontainer{% endblock %}">
+		<div  class="round-corners popup-add-layout">
+			<div class="top">
+				<span class="title">
+					{% block title %}{% endblock %}
+				</span>
+				<a href="#" class="popup-close-button"><span class="close">&nbsp;</span></a>
+			</div>
+
+
+			<div class="option-box">
+				{% block content %}
+				{% endblock %}
+				
+				<br class="clear" />
+			</div>
+
+		</div>
+</div>

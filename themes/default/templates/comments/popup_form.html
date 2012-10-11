@@ -1,0 +1,32 @@
+{% load comments i18n %}
+{% if request.user.is_authenticated %}
+
+<form action="{% comment_form_target %}" method="post" class="comment">{% csrf_token %}
+  <fieldset>
+          <legend>{% trans "Share your thoughts" %}</legend>
+<input type="hidden" name="next" value="{% url single_pin pin.pk %}#messages" />
+
+  {% for field in form %}
+    {% if field.is_hidden %}
+      {{ field }}
+    {% else %}
+      {% if field.errors %}{{ field.errors }}{% endif %}
+      <div class="commentrow"  {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+        
+        {% if field.errors %} class="error"{% endif %}
+        {{ field }}
+
+      </div>
+    {% endif %}
+  {% endfor %}
+  <div class="submit">
+    <input type="submit" name="post" class="submit-post btn primary" value="{% trans "Post" %}" />
+  </div>
+  </fieldset>
+</form>
+{% else %}
+<p class="please-login">
+  {% url acct_login as login_url %}
+  {% url single_pin pin.pk as pin_url %}
+  {% blocktrans%}Please <a href="{{login_url}}?next={{pin_url}}">log in</a> to comment{% endblocktrans %}</p>
+{% endif %}

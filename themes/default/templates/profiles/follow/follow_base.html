@@ -1,0 +1,22 @@
+{% extends "profiles/view_profile.html" %}
+{% load i18n sorl_thumbnail %}
+
+{% block body %}
+    
+<div class="top-info-bar">
+    <ul id="info-bar-items">
+        <li class="active">
+           <a href="{% url following_users %}">{% trans "Users I follow" %}</a>
+        </li>
+        <li>
+            <a href="{% url follower_users%}">{% trans "Users following me" %}</a>
+        </li>
+    </ul>
+    <div class="clear">&nbsp;</div>
+</div>
+
+{% block list %}
+
+{% endblock %}
+
+{% endblock %}

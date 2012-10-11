@@ -1,0 +1,15 @@
+{% load sorl_thumbnail i18n %}
+
+<div class="popup-comment-box">
+    {% for comment in comment_list|slice:":5" %}
+    <div class="comment" id="c{{ comment.id }}">
+        <a href="{{comment.user.get_absolute_url}}">
+        {% thumbnail comment.user.get_profile.image "50x50" crop="center" as im %}
+                <img src="{{ im.url }}" class="user-thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                {% endthumbnail %}</a>
+        <p class="user-name"><a href="{{comment.user.get_absolute_url}}">{{ comment.name }}</a></p>
+        <p class="comment-text">{{ comment.comment }}</p>
+    </div>
+  {% endfor %}
+    <div class="clear">&nbsp;</div>
+</div>

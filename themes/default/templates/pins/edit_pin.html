@@ -1,0 +1,45 @@
+{% extends "form_base.html" %}
+{% load i18n ifsetting_tag sorl_thumbnail comments bootstrap_tags %}
+
+
+{% block head_title %}{% trans "Edit pin" %}{% endblock %}
+{% block form_title %}{% trans "Edit pin" %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pins.css">
+{% endblock %}
+
+{% block form %}
+    <form action="" method="post" id="editPinForm" class="jqtransform">
+        {% csrf_token %}
+        <fieldset class="left-set">
+            {{form|as_bootstrap}}
+            <dl>
+                <dt>
+                    <label for="delete">{% trans "Delete" %}</label>
+                </dt>
+                <dd>
+                    <a href="{% url delete_pin pin.pk %}" class="round-corners grey-button" >{% trans "Delete Pin" %}</a>
+                </dd>
+            </dl>
+            <dl>
+                <dt>
+                    <label for="delete">&nbsp;</label>
+                </dt>
+                <dd>
+                    <input type="submit" name="submit" id="submit" value="{% trans "Submit"%}" />
+                </dd>
+
+            </dl>
+        </fieldset>
+
+        <fieldset>
+            <div class="editPin-info-block">
+                 {% thumbnail pin.get_image "267" crop="center" as im %}
+<a href="{{pin.url}}" class="pin"><img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/></a>
+{% endthumbnail %}
+                <p>{{pin.description}}</p>
+            </div>      
+        </fieldset>
+    </form>
+{% endblock %}

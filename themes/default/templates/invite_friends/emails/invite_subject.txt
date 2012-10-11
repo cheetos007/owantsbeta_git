@@ -1,0 +1,1 @@
+{% load i18n setting_tags %}{% site_setting "site_name" as site_name %}{% if invite.user.get_full_name %}{% blocktrans with user_name=invite.user.get_full_name %}{{user_name}} has invited you to join {{site_name}}{% endblocktrans %}{% else %}{{invite.user.username}} has invited you to join {{site_name}}{% endif %}

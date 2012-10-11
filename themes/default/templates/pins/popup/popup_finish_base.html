@@ -1,0 +1,68 @@
+{% extends "bare_base.html" %}
+{% load i18n bootstrap_tags %}
+
+{% block head_title %}{% trans "Create pin" %}{% endblock %}
+
+{% block body_class %}popup_body{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ STATIC_URL }}js/utils.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.jqtransform.js"></script>
+    <script src="{{ STATIC_URL }}js/pins/popup.finish.pin.js"></script>
+    <script src="{{ STATIC_URL }}js/forms.js"></script>
+{% endblock %}
+
+
+{% block body %}
+{% include "_messages.html" %}
+
+<div id="{% block popup_id %}maincontainer{% endblock %}">
+    <div  class="round-corners popup-add-layout">
+      <div class="top">
+        <span class="title">
+          {% block title %}
+            <img src="{{STATIC_URL}}img/add-pin-icon.png" alt="add-pin" /> 
+              <h1>{% trans "Add pin" %}</h1>
+          {% endblock %}
+        </span>
+        <a href="#" class="popup-close-button"><span class="close">&nbsp;</span></a>
+      </div>
+
+
+      <div class="option-box">
+        {% block content %}
+          <div id="pin-from-web-empty-description" class="popup-error hide">
+            {% trans "Please enter description for this pin!" %}
+          </div>
+          <div class="image-container">
+            <div id="web-image">
+              <img src="{{image_src}}" width="140" alt=""/>
+            </div>
+            <div class="hide" id="web-image-controls">
+              <a href="#" class="left disabled">&laquo;</a>
+              <a href="#" class="right">&raquo;</a>
+            </div>
+          </div>
+            <form action="{% block form_action %}{% url finish_bookmarklet_pin %}{% endblock %}" method="post" class="popup-form jqtransform">{% csrf_token %}
+              <input type="hidden" name="image_url" id="pin-from-web-image-url" value="{% if not video_id %}{{image_src}}{% endif %}" />
+              <input type="hidden" name="parser" id="add-pin-parser" value="{{parser}}"/>
+              <input type="hidden" name="video_id" id="add-pin-video-id" value="{{video_id}}"/>
+              <input type="hidden" name="url" id="pin-from-web-url" value="{{url}}"/>
+              {{pin_form|as_bootstrap}}
+              <dl>
+                <dt><label>&nbsp;</label></dt>
+                <dd>
+                  <input type="submit" value="{% trans "Finish" %}"/>
+                </dd>
+              </dl>
+            </form>
+            <br class="clear"/>
+            <br class="clear"/>
+        {% endblock %}
+        
+        <br class="clear" />
+      </div>
+
+    </div>
+</div>
+{% endblock %}

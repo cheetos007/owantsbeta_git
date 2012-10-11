@@ -1,0 +1,25 @@
+{% extends "invite_friends/base.html" %}
+{% load i18n bootstrap_tags %}
+
+
+
+
+{% block invite_content %}
+    <div class="row">
+        <form method="POST" action="" enctype="multipart/form-data" class="jqtransform base-form">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {{formset.non_form_errors}}
+            <fieldset>
+                {% for form in formset %}
+                    {{ form|as_bootstrap }}
+                {% endfor %}
+                {{ personal_note_form|as_bootstrap }}
+                
+            </fieldset>
+            <div class="actions">
+                <button type="submit" class="btn round-corners">{% trans "Send invites" %}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

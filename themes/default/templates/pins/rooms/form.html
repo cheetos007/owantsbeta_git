@@ -1,0 +1,44 @@
+{% extends "form_base.html" %}
+{% load i18n ifsetting_tag sorl_thumbnail comments bootstrap_tags %}
+
+
+{% block head_title %}
+    {% trans "Edit Room" %}
+{% endblock %}
+
+{% block form_title %}
+    {% if form_type == 'edit' %}
+        {% trans "Edit Room" %}
+    {% else %}
+        {% trans "Add Room" %}
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pins/boards.css">
+{% endblock %}
+
+
+{% block form %}
+    <form method="POST" action="" enctype="multipart/form-data" class="jqtransform">
+    {% csrf_token %}
+    <fieldset>
+        {{ form|as_bootstrap }}
+    
+    <dl>
+            <dt>
+                <label>&nbsp;</label>
+            </dt>
+            <dd>
+                {% if form_type == 'edit' %}
+                    <input type="submit" value="{% trans "Submit changes" %}"/>
+                    <a href="{% url delete_board board.pk %}" class="danger-link">{% trans "Delete Room" %}</a>
+                {% else %}
+                    <input type="submit" value="{% trans "Create Room" %}"/>
+                {% endif %}
+            </dd>
+
+        </dl>
+    </fieldset>
+</form>
+{% endblock %}

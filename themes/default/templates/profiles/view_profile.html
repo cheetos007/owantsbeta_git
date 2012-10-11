@@ -1,0 +1,99 @@
+{% extends "subnav_base.html" %}
+{% load i18n account_tags sorl_thumbnail pin_tags activity_stream activity_tags social_button_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pins/boards.css">
+
+{% endblock %}
+
+{% block head_title %}{% blocktrans with user_name=profile.user.get_full_name%}{{user_name}}'s profile{% endblocktrans %}{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function() {
+            $("#follow_button, #unfollow_button").click(function () {
+                $.post($(this).attr("href"), {});
+                $(this).parent().find("#follow_button, #unfollow_button").toggle();
+                return false
+            });
+
+
+        });
+    </script>
+    {% include "pins/rooms/_board_grid_js.html" %}
+{% endblock %}
+
+
+{% block subnav %}
+<div class="main-user-info">
+            <h2>{{profile.user.get_full_name}}</h2>
+
+            <p class="user-folowers-info">
+                {% blocktrans count counter=profile.user|number_of_followers %}
+                    <b>{{counter}}</b> follower{% plural %}<b>{{counter}}</b> followers{% endblocktrans %}, 
+
+                {% blocktrans count counter=profile.user|number_of_following %}
+                    <b>{{counter}}</b> following
+                    {% plural %}
+                    <b>{{counter}}</b> following
+                    {% endblocktrans %}
+            </p>
+
+            <div class="user-profile-image">
+                 {% thumbnail profile.image "266" crop="center" as im %}
+                <img src="{{ im.url }}" class="user-thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                {% endthumbnail %}
+            </div>
+
+            <div class="social-buttons-box">
+                <!--<a href="#" title="Rss feed" class="social-button">
+                    <img src="{{STATIC_URL}}img/rss-icon.png" alt="Rss" />
+                </a>//-->
+                {% if profile.user|facebook_profile_url %}
+                <a href="{{profile.user|facebook_profile_url}}" title="{% trans "Facebook profile" %}" class="social-button">
+                    <img src="{{STATIC_URL}}img/facebook-icon.png" alt="Facebook" />
+                </a>
+                {% endif %}
+
+                {% if profile.user|twitter_profile_url %}
+                <a href="{{profile.user|twitter_profile_url}}" title="{% trans "Twitter profile" %}" class="social-button">
+                    <img src="{{STATIC_URL}}img/twitter_icon.gif" alt="Twitter" />
+                </a>
+                {% endif %}
+                {% if request.user != profile.user %}
+		 
+                <a href="{% url actstream_unfollow content_type_id=ctype.pk object_id=profile.user.pk %}" 
+                    id="unfollow_button" 
+                    style="{% if not request.user|is_following_user:profile.user %}
+                    display:none;
+                    {% endif %}" 
+                    class="round-corners follow-button">
+
+                    {% trans "Unfollow all" %}
+                </a>
+
+                <a href="{% url actstream_follow content_type_id=ctype.pk object_id=profile.user.pk %}" 
+                    id="follow_button" 
+                    style="{% if request.user|is_following_user:profile.user %}
+                    display:none;
+                    {% endif %}" 
+                    class="round-corners follow-button">
+
+                    {% trans "Follow All" %}
+                </a>
+                {% endif %}
+
+                <div class="clear">&nbsp;</div> 
+            </div>
+                <div class="clear">&nbsp;</div>
+        </div>
+        <div class="user-events">
+            {% action_list profile.user %}
+        </div>
+
+{% endblock %}
+
+
+{% block body %}
+	{% user_boards profile.user %}
+{% endblock %}

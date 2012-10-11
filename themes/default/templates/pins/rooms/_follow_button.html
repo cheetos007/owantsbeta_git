@@ -1,0 +1,4 @@
+{% load i18n activity_stream %}
+ {% get_board_contenttype as ctype %}
+<a href="{% url actstream_unfollow content_type_id=ctype.pk  object_id=b.pk %}" id="unfollow_button" style="{% if not request.user|is_following_board:b %}display:none;{% endif %}" class="round-corners board-follow-button">{% trans "Unfollow" %}</a>
+<a href="{% url actstream_follow content_type_id=ctype.pk  object_id=b.pk %}" id="follow_button" style="{% if request.user|is_following_board:b %}display:none;{% endif %}" class="round-corners board-follow-button">{% trans "Follow" %}</a>

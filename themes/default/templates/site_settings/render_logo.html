@@ -1,0 +1,5 @@
+{% load sorl_thumbnail setting_tags %}
+{% site_setting "site_name" as site_name %}
+{% thumbnail logo size crop="center" format="PNG" as im %}
+<img id="logo" src="{{ im.url }}" alt="{{site_name}}" width="{{ im.width }}" height="{{ im.height }}" />
+{% endthumbnail %}

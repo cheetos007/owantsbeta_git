@@ -1,0 +1,188 @@
+.modal .input-horizontal {
+	float: left;
+	margin-right: 10px;
+	color: #BcBcBc;
+}
+
+.pin-url-finish-container .pin-image {
+	width: 100px;
+	height: 100px;
+	padding: 4px;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	margin: 10px;
+	overflow: hidden;
+}
+.modal .pin-form {
+	overflow: auto;
+	width: 100%;
+}
+.modal .pin-form .form {
+	float: left;
+}
+.modal div.input-prepend{
+	float: left
+}
+.modal button {
+	margin-left: 10px;
+}
+.ajax-loader {
+	width: 100%;
+	height: 100%;
+	background: transparent url('../img/ajax-loader.gif') no-repeat scroll center;
+}
+#add-pin-popup-finish-content {
+	height: 340px;
+}
+
+
+.image-container {
+	width: 120px;
+	float: left;
+	margin: 20px 0px 0px 20px;
+}
+#add-pin-popup-finish-content #web-image, #uploaded-image, #video-image {
+	width: 120px;
+	height: 120px;
+	float: left;
+	position: relative;
+}
+#add-pin-popup-finish-content #web-image .video-button-overlay {
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	top: 37px;
+	left: 47px;
+	background: transparent url('../img/play_button.png') no-repeat scroll center;
+}
+#add-pin-popup-finish-content #web-image img {
+	max-height: 120px;
+}
+#video-image {
+	width: 120px;
+	height: 120px;
+}
+#add-pin-popup-finish-content #web-image-controls, #video-image-controls  {
+	width: 100px;
+	height: 2em;
+	margin-top: 10px;
+	font-weight: x-bold;
+	float: left;
+}
+#video-image-controls {
+	width: 120px;
+}
+#web-image-controls a {
+	color: #000;
+}
+#web-image-controls .left, #web-image-controls .right, #video-image-controls .left, #video-image-controls .right{
+	padding: 0 10px;
+	cursor: pointer;
+	width: 20px;
+	text-align: center;
+}
+#web-image-controls a.disabled, #video-image-controls a.disabled {
+	color: grey;
+}
+#web-image-controls .left, #video-image-controls .left {
+	float: left;
+	
+}
+#web-image-controls .right, #video-image-controls .right {
+	float: right;
+	
+}
+
+#add-pin-popup-finish-content .popup-form select {
+    width:150px;
+}
+.popup-form{
+    margin:20px 15px;
+    float: right;
+}
+.popup-form textarea {
+	width: 200px;
+	height: 150px;
+}
+.popup-form dt label{
+    width:150px;
+    display:block;
+}
+.popup-form dd{
+    margin-bottom:15px;
+    display:block;
+}
+.popup-form dd select {
+    width:150px;
+}
+.popup-form dd input[type="submit"] {
+    display:block;
+    width:100px;
+}
+
+
+
+.bookmarklet .input-horizontal {
+	float: left;
+	margin-right: 10px;
+	color: #BcBcBc;
+	clear: both;
+	margin-top: 10px;
+	font-size: 2em;
+}
+.bookmarklet label {
+	font-size: 16px;
+	padding: 10px;
+	width: 100px;
+}
+.bookmarklet select {
+	width: 250px;
+}
+.bookmarklet textarea {
+	width: 240px;
+}
+
+body#nopadding {
+	padding: 20px;
+}
+.bookmarklet .pin-image {
+	width: 200px;
+	height: 200px;
+	padding: 4px;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+	margin: 10px;
+	overflow: hidden;
+}
+
+.bookmarklet .form {
+	float: left;
+	margin-left: 30px;
+}
+
+.bookmarklet button {
+	margin-left: 10px;
+}
+
+.bookmarklet .pin-image-container {
+	width: 200px;
+	height: 200px;
+	float: left;
+}
+
+.popup-error {
+	color: #c00;
+	text-align: center;
+	margin: 10px;
+	font-size: 1.5em;
+}

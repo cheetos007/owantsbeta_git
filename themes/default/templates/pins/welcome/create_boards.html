@@ -1,0 +1,71 @@
+{% extends "pins/welcome/base.html" %}
+{% load i18n sorl_thumbnail pin_tags bootstrap_tags %}
+
+
+{% block head_title %}{% trans "Create boards" %}{% endblock %}
+{% block form_title %}{% trans "Create pinboards" %}{% endblock %}
+
+{% block info_box_class %}curvyRedraw{% endblock %}
+
+{% block form %}
+ <h1></h1>
+ <p>
+    {% trans "To start pinning, you need some boards to pin to! We have a default set of boards you can use, but you are encouraged to create your own!" %}
+ </p>
+
+<form method="post" action="" id="initial-board-form" class="">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <div id="fieldset-container">
+           <fieldset>
+            <div class="row">
+                 <div class="row-field">
+                    <strong>{% trans "Name" %}</strong>
+                </div>
+                 <div class="row-field">
+                 <strong>{% trans "Category" %}</strong>
+                </div>
+            </div>
+        </fieldset>
+        {% for form in formset %}
+
+         <fieldset>
+            <div class="row">
+                 {% for field in form %}
+                 <div class="row-field">
+
+                      {{ field }}
+                    {{ field.errors }}
+                  </div><!-- /clearfix -->
+                                
+                        {% endfor %}
+                {% if forloop.last %}
+                    <a href="" id="add-field" class="btn success">+</a>
+                {% endif %}
+            </div>
+
+            </fieldset>
+        {% endfor %}
+    </div>
+
+    <input type="submit" class="btn success" value="{% trans "Proceed" %}" name="ok" />
+    <div class="clear"></div>
+</form>
+
+
+    <div class="hide" id="empty-board-form">
+    <fieldset>
+        <div class="row">
+             {% for field in formset.empty_form %}
+             <div class="row-field">
+          {{ field }}
+        {{ field.errors }}
+      </div><!-- /clearfix -->
+                    
+            {% endfor %}
+
+        </div>
+        </fieldset>
+    </div>
+<br class="clear"/>
+{% endblock %}

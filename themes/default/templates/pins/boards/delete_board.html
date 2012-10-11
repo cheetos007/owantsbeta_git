@@ -1,0 +1,21 @@
+{% extends "form_base.html" %}
+{% load i18n %}
+
+
+{% block head_title %}{% trans "Delete board" %}{% endblock %}
+
+{% block form_title %}{{board}} / {{board.category}}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pins.css">
+{% endblock %}
+
+{% block form %}
+             <form method="POST" action="">
+                {% csrf_token %}
+                <p>{% trans "Are you sure you want to delete this board?" %}</p>
+                <p>{% trans "If you click yes, this board and all pins on this board will be deleted irreversibly!" %}</p>
+                <a href="{{board.get_absolute_url}}" class="btn success">{% trans "No" %}</a>
+                <input type="submit" class="danger btn" value="{% trans "Yes" %}" name="ok" />
+            </form>
+{% endblock %}

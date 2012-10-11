@@ -1,0 +1,11 @@
+{% extends "bare_base.html" %}
+{% load i18n bootstrap_tags %}
+
+{% block head_title %}{% trans "Pin created" %}{% endblock %}
+
+{% block body_id %}nopadding{% endblock %}
+{% block body %}
+{% include "_messages.html" %}
+<a href="{% url single_pin pin_pk %}" target="_blank">{% trans "Click here to see your pin!" %}</a>
+{% include "pins/_share_links.html" %}
+{% endblock %}

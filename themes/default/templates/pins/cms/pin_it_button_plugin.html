@@ -1,0 +1,26 @@
+{% load i18n bootstrap_tags %}
+<div class="pin-it-button-generator">
+	<form class="jqtransform base-form large-base-form">
+		<fieldset class="vertical">
+			{{iframe_form|as_bootstrap}}
+
+		</fieldset>
+	</form>
+
+
+	<div class="instructions">
+		<p>{% trans "Add this code where you want the button to appear:" %}</p>
+			<textarea name="button_code" id="id_button_code"></textarea>
+		<p>{% trans "Add this code to your page only once, directly above the closing &lt;/body&gt; tag" %}</p>
+			<textarea name="button_script" id="id_button_script"><script type="application/javascript" src="{{script_src}}"></script></textarea>
+	</div>
+</div>
+	<div class="example-button">
+
+		<h3>{% trans "Example:" %}</h3>
+		<div class="button-container"></div>
+	</div>
+<script type="text/javascript">
+	var IFRAME_SRC = '{{iframe_src}}';
+	var PIN_IT_TITLE = '{% trans "Pin it" %}'	
+</script>

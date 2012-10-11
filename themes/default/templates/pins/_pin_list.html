@@ -1,0 +1,65 @@
+{% load sorl_thumbnail i18n %}
+{% for pin in pins %}
+ {% if pin.owant_type == owant_tab_type %}
+<li>
+  {% if pin.is_advertisment %}
+    {{pin.get_advertisment}}
+  {% else %}
+  <div class="pin-main-box">
+    <div class="pin-head-wrapper">
+      <div class="pin-image-options">
+        <div>
+          {% thumbnail pin.get_image "266" crop="center" as im %}
+                <a class="pin-popup-link" href="{{pin.get_popup_url}}"><img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"></a>
+            {% endthumbnail %}
+        </div>
+        <br class="clear" />
+        <!--
+        <div class="options-buttons">
+            <a href="#" title="{% trans "Repin" %}" data-pin-pk="{{pin.pk}}" class="round-corners option-button repin-pin">
+              <span class="option-repin">{% trans "Repin" %} ({{pin.get_number_of_repins}})</span>
+            </a>
+            <a href="#" title="{% trans "Like" %}" data-pin-pk="{{pin.pk}}" class="round-corners option-button like-pin">
+              <span class="option-like">{% trans "Like" %} (<span class="number">{{pin.get_number_of_likes}}</span>)</span>
+            </a>
+            <!--
+            <a href="{{pin.get_absolute_url}}" title="{% trans "Comments" %}" class="round-corners option-button">
+              <span class="option-comment">{% trans "Comments" %}</span>
+            </a>
+          <br class="clear" />
+        </div>
+        <br class="clear" />
+        //-->
+      </div>
+          <br class="clear" />
+          <p class="pin-content">{{pin.description|truncatewords:15 }} - {{ pin.owant_type }}</p>
+    </div>
+    <div class="pin-comments">
+      {% for c in pin.comments %}
+      <div class="pin-comment-box pin-comment-{% cycle "color1" "color2" %}">
+        {% thumbnail c.user.get_profile.image "30x30" crop="center" as im %}
+          <img src="{{ im.url }}" class="user-thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+        {% endthumbnail %}
+        <p>{{c.comment|truncatewords:5}}</p>
+        <br class="clear" />
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="pin-box-bottom">
+      <p>
+        <!--
+        <a href="{{pin.get_absolute_url}}#comments" title="{% trans "All comments" %}">{% trans "See all comments" %}</a>
+        //-->
+          <a href="{{pin.get_absolute_url}}" title="{% trans "Comments" %}" class="round-corners option-button">
+              <span class="option-comment">{% trans "Comments" %}</span>
+          </a>
+      </p>
+    </div>
+
+
+  </div>
+  {% endif %}
+</li>
+ {% endif %}
+    {% endfor %}

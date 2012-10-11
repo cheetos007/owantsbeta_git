@@ -1,0 +1,13 @@
+{% load i18n sorl_thumbnail %}
+<div class="profile_info">
+    {% if profile.name %}<p><b>{% trans "Name" %}</b>: {{ profile.name }}</p>{% endif %}
+    {% if profile.about %}<p><b>{% trans "About" %}</b>: {{ profile.about }}</p>{% endif %}
+    {% if profile.location %}<p><b>{% trans "Location" %}</b>: {{ profile.location }}</p>{% endif %}
+    {% if profile.website %}<p><b>{% trans "Website" %}</b>: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %}
+    
+	{% if profile.image %}
+		{% thumbnail profile.image "300" crop="center" as im %}
+		<p><b>{% trans "Avatar" %}</b>: <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/></p>
+		{% endthumbnail %}
+	{% endif %}
+</div>

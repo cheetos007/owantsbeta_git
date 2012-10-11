@@ -1,0 +1,45 @@
+{% extends "pins/popup/popup_base.html" %}
+{% load i18n bootstrap_tags %}
+{% block popup_id %}add-pin-popup-finish-content{% endblock %}
+
+{% block title %}
+<img src="{{STATIC_URL}}img/add-pin-icon.png" alt="add-pin" /> 
+	<h1>{% trans "Add A Pin" %}</h1>
+{% endblock %}
+
+{% block content %}
+	<div id="pin-from-web-error" class="popup-error hide">
+		{% trans "Unable to find images from the given website!" %}
+	</div>
+	<div id="pin-from-web-empty-description" class="popup-error hide">
+		{% trans "Please enter description for this pin!" %}
+	</div>
+	<div class="image-container">
+		<div id="web-image">
+
+		</div>
+		<div class="hide" id="web-image-controls">
+			<a href="#" class="left disabled">&laquo;</a>
+			<a href="#" class="right">&raquo;</a>
+		</div>
+	</div>
+		<form action="{% url finish_web_pin %}" method="post" class="popup-form popup-jqtransform">{% csrf_token %}
+			<input type="hidden" name="image_url" id="pin-from-web-image-url"/>
+			<input type="hidden" name="parser" id="add-pin-parser"/>
+			<input type="hidden" name="video_id" id="add-pin-video-id"/>
+			<input type="hidden" name="url" id="pin-from-web-url"/>
+			{{pin_form|as_bootstrap}}
+			<dl>
+				<dt><label>&nbsp;</label></dt>
+				<dd>
+					<input type="submit" value="{% trans "Finish" %}" class="disabled" />
+				</dd>
+			</dl>
+		</form>
+		<br class="clear"/>
+		<br class="clear"/>
+{% endblock %}
+
+
+
+

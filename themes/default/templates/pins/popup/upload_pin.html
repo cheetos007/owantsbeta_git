@@ -1,0 +1,37 @@
+{% extends "pins/popup/popup_base.html" %}
+{% load i18n bootstrap_tags %}
+{% block popup_id %}upload-pin-finish-content{% endblock %}
+
+{% block title %}
+<img src="{{STATIC_URL}}img/upload-pin-icon.png" alt="add-pin" /> 
+	<h1>{% trans "Enter description" %}</h1>
+{% endblock %}
+
+{% block content %}
+	<div id="pin-upload-error" class="hide popup-error">
+		{% trans "Unable to process uploaded image." %}
+	</div>
+	<div id="pin-upload-empty-description" class="popup-error hide">
+		{% trans "Please enter description for this pin!" %}
+	</div>
+	<div class="image-container">
+		<div id="uploaded-image">
+
+		</div>
+
+	</div>
+		<form action="{% url finish_pin %}" method="post" class="popup-form popup-jqtransform">{% csrf_token %}
+			<input type="hidden" name="pin_pk" id="pin_pk"/>
+			{{pin_form|as_bootstrap}}
+			<dl>
+				<dt><label>&nbsp;</label></dt>
+				<dd>
+					<input type="submit" value="{% trans "Finish" %}" class="disabled" />
+				</dd>
+			</dl>
+		</form>
+{% endblock %}
+
+
+
+

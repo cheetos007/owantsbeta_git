@@ -1,0 +1,85 @@
+
+
+.categories {
+	float: left;
+	width: 80%;
+}
+.categories a {
+	display: block;
+	position: relative;
+	margin: 5px;
+}
+.categories li {
+	float: left;
+	margin: 10px;
+}
+.categories span.title{
+	margin: 10px;
+	font-size: 1.8em;
+}
+
+div.tick {
+	width: 14px;
+	height: 12px;
+	display: none;
+	background: url('../../img/tick-icon.png') no-repeat transparent;
+}
+.category {
+	float: left;
+	width: 30%;
+}
+.category .user {
+	width: 90%;
+	float: left;
+}
+
+.category .user .avatar {
+	float: left;
+	width: 120px;
+	height: 120px;
+	position: relative;
+	cursor: pointer;
+}
+.category .user .pins {
+	float: left;
+}
+
+.categories a.selected div.tick, .category .selected div.tick {
+	position: absolute;
+	display: block;
+	top: 40px;
+	left:20px;
+}
+.category .selected div.tick {
+	top: 20px;
+}
+#users-form {
+	float: left;
+	clear: both;
+}
+.row-field {
+	width: 45%;
+	float: left;
+}
+#initial-board-form {
+	width: 75%;
+	color: #94C5D7;
+}
+#initial-board-form fieldset {
+	margin: 5px 0px;
+}
+
+.row-field strong {
+	font-size: 1.5em;
+	padding: 5px;
+}
+#fieldset-container input {
+	height: 2em;
+	width: 400px;
+	font-size: 1.5em;
+}
+#fieldset-container select {
+	height: 2.5em;
+	width: 400px;
+	font-size: 1.5em;
+}

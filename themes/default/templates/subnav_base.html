@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block body_base %}
+    <div id="contentwrapper">
+        <div id="menu-box-layout">
+            {% include "_messages.html" %}
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+
+        
+                
+    <div id="leftcolumn" class="menu-box-layout">
+        {% block subnav %}
+        {% endblock %}
+    <div class="clear">&nbsp;</div>
+    </div>
+{% endblock %}

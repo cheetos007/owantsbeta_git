@@ -1,0 +1,57 @@
+{% extends "invite_friends/base.html" %}
+{% load i18n bootstrap_tags setting_tags %}
+
+{% block extra_js %}
+  {{block.super}}
+  <script src="{{ STATIC_URL }}js/facebook.invite.js"></script>
+     {% if friends_list %}
+        <script type="application/javascript">
+             window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '{% site_setting "facebook_app_id" %}', // App ID
+              //channelUrl : 'http://{{request.get_host}}{{STATIC_URL}}/channel.html', // Channel File
+              status     : true, // check login status
+              cookie     : true, // enable cookies to allow the server to access the session
+             
+            });
+            facebookInvite.init({'all_friends': {{friends_list_json|safe}}, 'link': 'http://{{request.get_host}}{{invite.get_absolute_url|safe}}',
+                'name': '{% trans "Join" %} {% site_setting "site_name" %}', 'type': 'link', 'description': '{% trans "Join" %} {% site_setting "site_name" %}{% trans "- a fun way to share photos you like!" %}', 'invites_sent_url': "{% url sent_facebook_invites %}"});
+                // Additional initialization code here
+              };
+
+          // Load the SDK Asynchronously
+          (function(d){
+             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement('script'); js.id = id; js.async = true;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             ref.parentNode.insertBefore(js, ref);
+           }(document));
+        </script>
+    {% endif %}
+{% endblock %}
+
+
+{% block invite_content %}
+<div id="fb-root"></div>
+        {% if friends_list %}
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="actions">
+                <a href="#" class="btn round-corners" id="invite-all">{% trans "Invite all" %}</a>
+                <a href="#" class="btn round-corners" id="invite-selected">{% trans "Invite selected" %}</a>
+            </div>
+           <ul class="invite-each">
+            {% for f in friends_list %}
+            <li id="invite-friend-{{f.id}}"><img src="http://graph.facebook.com/{{f.id}}/picture?type=square" width="31" height="31"/>
+                <span class="friend-name">{{f.name}}</span> <span class="invite-actions">{% if f.id not in invited_fb_ids %}
+                <input type="checkbox" name="{{f.id}}" />{% else %}{% trans "Invited!"%}{% endif %}</span>
+            </li>
+            {% endfor %}
+           </ul>
+            <textarea name="personal_note" id="personal-note" rows="10" cols="20">{% trans "Add a personal note" %}</textarea>
+        </form>
+        {% else %}
+            <a class="btn" href="{{auth_url}}?next={{request.path}}">{% trans "Invite friends from Facebook" %}</a>
+        {% endif %}
+{% endblock %}

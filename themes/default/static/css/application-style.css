@@ -1,0 +1,352 @@
+body.popup_body {
+    min-width:inherit;
+}
+body.popup_body #footer #footer-box { 
+    width: inherit;
+}
+.hide {
+	display: none;
+}
+
+.round-corners {
+	    /* Do rounding (native in Firefox and Safari) */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+ul#pin-grid li .options-buttons {
+	visibility: hidden;
+}
+
+ul#pin-grid li:hover .options-buttons {
+	visibility: visible;
+}
+
+ul.errorlist li {
+	display: inline-block;
+	color: #E34242;
+}
+
+.login-form dd input.NFButton {
+	color: white;
+}
+
+.user-events h3 {
+	padding: 10px;
+	font-size: 1.5em;
+	color: #42C7DC;
+}
+
+.niceform label {
+	width: 150px;
+	display: block;
+	text-align: left;
+	margin-bottom: 5px;
+}
+.niceform dt {
+	margin-bottom: 10px;
+}
+.niceform span.error-block-inline {
+	color: #E34242;
+	padding: 5px;
+}
+
+.btn {
+    background:#9fc982;
+    border:1px solid #7bac59;
+    color:#fff;
+    font-weight:bold;
+    padding:5px;
+    margin:5px 0;
+    display:inline-block;
+}
+.danger {
+	background:#E34242;
+    border:1px solid #c34242;
+}
+.alert-message {
+	background:#9fc982;
+    border:1px solid #7bac59;
+    color:#fff;
+    font-weight:bold;
+    padding:5px;
+    margin:10px auto;
+    display:inline-block;
+}
+
+.top-info-bar h1 {
+	font-size: 2em;
+	color: #E34242;
+	font-weight: bold;
+}
+
+a.danger-link {
+	color: #E34242;
+	text-decoration: underline;
+}
+
+p.delete-warning {
+	color: #E34242;
+	font-size: 1.5em;
+}
+
+.popup-add-layout ul.popup-large-buttons li {
+	height: 183px;
+}
+
+
+
+#menu {
+    margin:0; 
+    padding:0; 
+    list-style:none;
+}   
+     
+    /* make the LI display inline */
+    /* it's position relative so that position absolute */
+    /* can be used in submenu */
+    #menu li {
+        position:relative;
+        z-index:500; 
+        margin:0 1px;
+    }
+     
+        /* submenu, it's hidden by default */
+        #menu ul {
+            position:absolute; 
+            left:0; 
+            display:none; 
+            margin:0 0 0 -1px; 
+            padding:0; 
+            list-style:none;
+            background: #51B9DE;
+            width: 160px;
+            border-radius: 5px; 
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+        }
+         
+        #menu ul li {
+            width: 100%;
+            float:left; 
+            border-top:1px solid #fff;
+        }
+         
+        /* display block will make the link fill the whole area of LI */
+        #menu ul a {
+            display:block;  
+            height:15px;
+            padding: 8px 5px; 
+            color:#fff;
+            font-weight: bold;
+        }
+         
+        #menu ul a:hover {
+            text-decoration:underline;  
+        }
+ 
+/* fix ie6 small issue */
+/* we should always avoid using hack like this */
+/* should put it into separate file : ) */
+*html #menu ul {
+    margin:0 0 0 -2px;
+}
+
+.top-info-bar form div.inputRow {
+    margin: 0px 10px;
+}
+.top-info-bar form div.fieldRow {
+    display: block;
+    width: 160px;
+}
+.top-info-bar form label {
+    padding: 5px;
+}
+.top-info-bar form span.jqTransformCheckboxWrapper {
+    margin-top: -3px;
+    margin-right: 3px;
+}
+
+.top-info-bar .search-string {
+    margin: 10px;
+}
+.top-info-bar .search-string span {
+    font-size: 18px;
+}
+.base-form dl {
+    margin: 5px;
+}
+.base-form em {
+    color: #d00;
+}
+.abuse-form label, .base-form label {
+    display: block;
+    width: 150px;
+}
+.abuse-form table, .base-form table, .base-form .jqTransformInputWrapper {
+    margin-top: 5px;
+}
+.large-base-form label {
+    width: 220px;
+}
+
+span.pin-actions {
+    float: right;
+}
+
+ul#menu-top span.plus {
+    color: #555;
+}
+
+
+
+#menu-top {
+    margin:0; 
+    padding:0; 
+    list-style:none;
+}   
+     
+    /* make the LI display inline */
+    /* it's position relative so that position absolute */
+    /* can be used in submenu-top */
+    #menu-top li {
+        position:relative;
+        z-index:500; 
+        margin:0 1px;
+    }
+     
+        /* submenu-top, it's hidden by default */
+        #menu-top ul {
+            position:absolute; 
+            left:0; 
+            display:none; 
+            margin:0 0 0 -1px; 
+            padding:0; 
+            list-style:none;
+            background: #fff;
+            width: 160px;
+            border-radius: 5px; 
+            -moz-border-radius: 5px; 
+            -webkit-border-radius: 5px;
+        }
+         
+        #menu-top ul li {
+            width: 100%;
+            float:left; 
+            border-top:1px solid #fff;
+        }
+         
+        /* display block will make the link fill the whole area of LI */
+        #menu-top ul li a {
+            display:block;  
+            height:15px;
+            padding: 8px 5px; 
+            color:#94C5D7;
+            font-weight: bold;
+        }
+       ul#menu-top li a {
+            display: block;
+            float: none;
+        }
+         
+        #menu-top ul a:hover {
+            text-decoration:underline;  
+        }
+ 
+/* fix ie6 small issue */
+/* we should always avoid using hack like this */
+/* should put it into separate file : ) */
+*html #menu-top ul {
+    margin:0 0 0 -2px;
+}
+
+.invite-info-bar a {
+    color: #E34242;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.invite-info-bar span {
+    font-size: 1.5em;
+}
+
+ul.invite-each {
+    max-height: 700px;
+    overflow: scroll;
+    width: 77%;
+    float: left;
+}
+
+
+ul.invite-each li {
+    float: left;
+    height: 40px;
+    width: 250px;
+}
+ul.invite-each li img, ul.invite-each li span {
+    float: left;
+    margin: 0px 5px 0px;
+}
+ul.invite-each li span.friend-name {
+    width: 150px;
+}
+
+textarea#personal-note {
+    float: left;
+    margin: 0px 0px 0px 30px;
+    height: 100px;
+    width: 18%;
+}
+.account-bar-links a {
+    text-decoration: underline;
+}
+.account-bar-links a, .account-bar-links {
+    color: #7D8792;
+}
+.account-bar-links {
+    margin: 5px 30px;
+}
+
+.pin-it-button-generator {
+    float: left;
+    width: 600px;
+}
+.pin-it-button-generator input {
+    width: 300px;
+}
+.pin-it-button-generator .instructions p, .pin-it-button-generator .instructions textarea {
+    float: left;
+    clear:both;
+    margin: 10px;
+}
+.pin-it-button-generator .instructions textarea {
+    width: 500px;
+    height: 100px;
+}
+.example-button {
+    float: left;
+    height: 150px;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #8B989E;
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px;
+    padding: 20px;
+}
+.example-button div.button {
+    background: url(../img/button-example.png) no-repeat;
+    margin: 10px auto;
+}
+.example-button div.button-horizontal {
+    width: 71px;
+    height: 25px;
+}
+ .example-button div.button-none {
+    width: 49px;
+    height: 25px;
+}
+ .example-button div.button-vertical {
+    width: 71px;
+    height: 56px;
+    background-position: 0px -60px;
+}
+

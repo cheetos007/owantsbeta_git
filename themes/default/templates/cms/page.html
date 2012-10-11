@@ -1,0 +1,39 @@
+{% extends "site_base.html" %}
+{% load cms_tags menu_tags %}
+
+{% block head_title %}
+	{% page_attribute "page_title" %}
+{% endblock %}
+
+{% block subnav %}
+	<ul>
+		
+	</ul>
+{% endblock %}
+
+{% block body %}
+	<div id="main-box-layout">
+	<div class="round-corners page-info-box">
+		<div class="page-box-wraper">
+			<div class="page-title-box">
+				<h1>{% page_attribute "page_title" %}</h1>
+			</div>
+			<div class="main-page-info-box">
+				<ul id="page-info-menu-box">
+					{% show_menu 0 100 0 100 %}
+				</ul>
+
+				<div class="page-info-main-box">
+			      {% placeholder base_content %}
+			      {% block base_content%}{% endblock %}
+				</div>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{{STATIC_URL}}js/pins/button_generator.js"></script>
+{% endblock %}

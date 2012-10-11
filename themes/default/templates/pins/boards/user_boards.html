@@ -1,0 +1,32 @@
+{% load i18n sorl_thumbnail %}
+<div class="top-info-bar">
+    <ul id="info-bar-items">
+        <li class="active">
+            {% blocktrans count boards|length as count %}
+                    {{count}} Board
+                {% plural %}
+                    {{count}} Boards
+            {% endblocktrans %}
+        </li>
+        <li>
+            <img src="{{STATIC_URL}}img/point-bullet.png" />
+            {% blocktrans count number_of_pins as count %}
+                    {{count}} Pin
+                {% plural %}
+                    {{count}} Pins
+            {% endblocktrans %}
+        </li>
+        <li>
+            <img src="{{STATIC_URL}}img/point-bullet.png" />
+            {% blocktrans count number_of_likes as count %}
+                    {{count}} Like
+                {% plural %}
+                    {{count}} Likes
+            {% endblocktrans %}
+        </li>
+    </ul>
+    <div class="clear">&nbsp;</div>
+</div>
+
+
+{% include "pins/rooms/_board_list.html" %}

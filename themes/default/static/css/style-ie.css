@@ -1,0 +1,12 @@
+#page-wrap {
+	width:expression(document.body.clientWidth < 782? "780px" : document.body.clientWidth > 1262? "1260px" : "auto");
+}
+.search_box .search_field{
+	padding-top:5px;
+}
+
+.clearfix {
+zoom: 1;     /* triggers hasLayout */
+}  /* Only IE can see inside the conditional comment
+and read this CSS rule. Don't ever use a normal HTML
+comment inside the CC or it will close prematurely. */

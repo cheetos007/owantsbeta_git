@@ -1,0 +1,70 @@
+{% extends "theme_base.html" %}
+
+{% load i18n bootstrap_tags pin_tags cache cms_tags %}
+
+
+{% block nav %}
+<div id="info-boxes">
+    <div id="search-box">
+        <form action="/search" method="get">
+            <input type="text" class="search-field" name="q" />
+            <input type="image" src="{{STATIC_URL}}img/search_icon.png" class="search-submit" value="" />
+        </form>
+    </div>
+
+    <div class="clear">&nbsp;</div>
+
+    <ul id="menu">
+        <li><a href="#" class="round-corners button-blue-active">{% trans "Categories" %}</a>
+          <ul class="menu-dropdown">
+                  {% pin_categories_dropdown %}
+              </ul>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url index %}" class="round-corners button-blue-unactive">{% trans "owants I follow" %}</a></li>
+            {% endif %}
+        <li><a href="{% url home %}" class="round-corners button-blue-active">{% trans "All" %}</a></li>
+
+ 
+    </ul>
+
+</div>
+<!--
+    {% if user.is_authenticated %}
+        <ul>{% spaceless %}
+            
+            <li>
+            <a href="#" class="menu">{% if category %}{{category}}{% else %} {% trans "Categories" %}{% endif %}</a>
+              
+            </li>
+
+        {% endspaceless %}</ul>
+    {% endif %}-->
+{% endblock %}
+
+{% block extra_body_base %}
+    {% block extra_body %}{% endblock %}
+    <div class="popup-container hide">
+    {% if request.user.is_authenticated %}
+      {% if request.is_banned %}
+        {% include "pins/popup/popup_banned.html" %}
+      {% else %}
+        {% include "pins/popup/popup.html" %}
+        {% include "pins/popup/add_pin.html" %}
+        {% include "pins/popup/add_own.html" %}
+        {% include "pins/popup/add_want.html" %}
+        {% include "pins/popup/add_pin_finish.html" %}
+        {% include "pins/popup/upload_pin.html" %}
+        {% include "pins/popup/create_board.html" %}
+        {% include "pins/popup/repin.html" %}
+      {% endif %}
+    {% endif %}
+    
+    {% include "pins/_blank_pin_template.html" %}
+  </div>
+{% endblock %}
+
+
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}

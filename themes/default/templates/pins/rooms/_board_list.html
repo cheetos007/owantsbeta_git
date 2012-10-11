@@ -1,0 +1,32 @@
+{% load i18n sorl_thumbnail %}
+<div id="board-info-box">
+    <ul id="board-categories">
+        {% for b in boards %}
+        <li class="categ-box">
+            <div class="categ-box-wraper">
+            <h3 class="boar-box-title"><a href="{{b.get_absolute_url}}" class="board-title">{{b.name}}</a> / {{b.category.name}}</h3>
+
+            <div class="board-box-images-list" >
+            {% for p in b.pins %}
+                <div>
+                    <a href="{{b.get_absolute_url}}">
+                        {% thumbnail p.get_image "60x60" crop="center" as im %}
+                            <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                        {% endthumbnail %}
+                    </a>
+                </div>
+            {% empty %}
+                <p>{% trans "No pins yet..." %}</p>
+            {% endfor %}
+            <br class="clear" />
+            </div>
+            <div class="clear">&nbsp;</div>
+            {% if not request.user == b.user %}
+               {% include "pins/rooms/_follow_button.html" %}
+            {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="clear">&nbsp;</div>
+</div>

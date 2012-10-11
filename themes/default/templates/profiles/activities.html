@@ -1,0 +1,28 @@
+{% load i18n sorl_thumbnail %}
+
+{% for action in action_list %}
+	 
+
+	<div class="user-events-box user-event-color{% cycle "1" "2" %}">
+		{% thumbnail action.actor.get_profile.image "40x40" crop="center" as im %}
+    <img src="{{ im.url }}" class="user-thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+    {% endthumbnail %}
+		<p class="event-description">
+
+			{% if action.actor.get_absolute_url %}<a href="{{ action.actor.get_absolute_url }}">{{ action.actor }}</a>
+	{% else %}<a href="{{ action.actor_url }}">{{ action.actor }}</a>{% endif %}
+	{{ action.verb }}
+	{% if action.action_object %}
+	    <a href="{{ action.action_object.get_absolute_url }}">{{ action.action_object|truncatewords:5 }}</a>
+	{% endif %}
+	{% if action.target %}
+	 on 
+	    {% if action.target.get_absolute_url %}<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>
+	    {% else %}<a href="{{ action.target_url }}">{{ action.target}}</a>{% endif %}
+	{% endif %}
+
+</p>
+		<p class="event-time">{{ action.timestamp|timesince }} {% trans "ago" %}</p>
+		<div class="clear">&nbsp;</div>
+	</div>
+{% endfor %}

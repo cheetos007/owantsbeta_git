@@ -1,0 +1,6 @@
+{% load sorl_thumbnail %}
+{% for p in pins %}
+    {% thumbnail p.get_image "50x50" crop="center" as im %}
+        <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+    {% endthumbnail %}
+{% endfor %}

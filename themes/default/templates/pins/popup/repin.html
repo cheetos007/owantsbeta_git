@@ -1,0 +1,35 @@
+{% extends "pins/popup/popup_base.html" %}
+{% load i18n bootstrap_tags %}
+{% block popup_id %}repin-finish-content{% endblock %}
+
+{% block title %}
+<img src="{{STATIC_URL}}img/add-pin-icon.png" alt="add-pin" /> 
+	<h1>{% trans "Repin" %}</h1>
+{% endblock %}
+
+{% block content %}
+	<div id="repin-empty-description" class="popup-error hide">
+		{% trans "Please enter description for this pin!" %}
+	</div>
+	<div class="image-container">
+		<div id="repinned-image">
+
+		</div>
+	</div>
+		<form action="{% url finish_repin %}" method="post" class="popup-form popup-jqtransform">{% csrf_token %}
+			<input type="hidden" name="repinned_pin" id="id_repinned_pin"/>
+			{{pin_form|as_bootstrap}}
+			<dl>
+				<dt><label>&nbsp;</label></dt>
+				<dd>
+					<input type="submit" value="{% trans "Finish" %}" />
+				</dd>
+			</dl>
+		</form>
+		<br class="clear"/>
+		<br class="clear"/>
+{% endblock %}
+
+
+
+

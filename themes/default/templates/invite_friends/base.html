@@ -1,0 +1,26 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+
+{% block head_title %}{% trans "Invite friends" %}{% endblock %}
+
+{% block body %}
+<div id="main-box-layout">
+	<div class="round-corners page-info-box {% block info_box_class %}{% endblock %}">
+		<div class="page-box-wraper">
+			<div class="top-info-bar invite-info-bar">
+				<a href="{% url invite_friends_email %}">{% trans "Invite via email" %}</a><span> | </span> 
+				<a href="{% url invite_friends_facebook %}">{% trans "Invite via Facebook" %}</a>
+			</div>
+			
+			<div class="main-page-info-box">
+				{% block invite_content %}
+
+				{% endblock %}
+
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+</div>
+</div>
+{% endblock %}

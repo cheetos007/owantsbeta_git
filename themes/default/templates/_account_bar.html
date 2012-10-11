@@ -1,0 +1,71 @@
+{% load i18n menu_tags cms_tags sorl_thumbnail %}
+<div id="menu-right">
+    {% if request.user.is_authenticated %}
+    <div class="user-info">
+        <div class="user-text-block">
+            <span class="greeting-text">{% trans "Hello"%},</span>
+            <a href="{{request.user.get_absolute_url}}"><span class="username-text">{{request.user.get_full_name}}</span></a>
+        </div>
+
+        <div class="user-image">
+            {% thumbnail request.user.get_profile.image "50x50" crop="center" as im %}
+                <a href="{{request.user.get_absolute_url}}">
+                    <img src="{{ im.url }}" alt="{{request.user.get_full_name}}" class="user-picture" width="{{ im.width }}" height="{{ im.height }}"/>
+                </a>
+                {% endthumbnail %}
+        
+        </div>
+
+    </div>
+
+    <ul id="menu-top">
+        <li>
+            <a href="" id="create-pin-popup" title="{% trans "Own it" %}">
+                <!--<span class="plus">+</span>{% trans "Own it" %}-->
+                <img src="{{STATIC_URL}}img/add-own-icon.png" alt="{% trans "Own it" %}" />
+            </a>
+        </li>
+        <li>
+            <a href="" id="create-pin-popup" title="{% trans "Want it" %}">
+                <!-- <span class="plus">+</span>{% trans "Want it" %} -->
+                <img src="{{STATIC_URL}}img/add-want-icon.png" alt="{% trans "Want it" %}" />
+            </a>
+        </li>
+        <li><a href="{% page_url "cms_root" %}" title="{% trans "About" %}">{% trans "About" %}</a>
+            <ul class="submenu">
+                {% show_menu 0 1 0 1 %}
+            </ul>
+        </li>
+        <li><a href="{% url edit_profile %}" title="{% trans "Profile" %}">{% trans "Profile" %}</a>
+            <ul class="submenu">
+                <li><a href="{% url invite_friends_email %}">{% trans "Invite friends" %}</a></li>
+                <li><a href="{% url boards %}" title="{% trans "My Rooms" %}">{% trans "My Rooms" %}</a></li>
+                <li><a href="{% url following_users %}" title="{% trans "Users I follow" %}">{% trans "Users I follow" %}</a></li>
+                <li><a href="{% url follower_users %}" title="{% trans "Users following me" %}">{% trans "Users following me" %}</a></li>
+            </ul>
+        </li>
+        {% if user.is_staff %}
+            <li><a href="/admin/">{% trans "Admin" %}</a></li>
+        {% endif %}
+        <li><a href="{% url acct_logout %}" title="{% trans "Sign Out" %}">{% trans "Sign Out" %}</a></li>
+    </ul>
+    {% else %}
+    <div id="sign-in">
+        <ul  id="menu-top">
+            <li><a href="/explore">Explore</a></li>
+            <li><a href="/myow">MyOW</a></li>
+            <li><a href="{% page_url "cms_root" %}" title="{% trans "About" %}">{% trans "About" %}</a>
+                <ul class="submenu">
+                    {% show_menu 0 1 0 1 %}
+                </ul>
+            </li>
+
+                <li><a href="{% url acct_login %}">Login</a></li>
+
+
+
+        </ul>
+    </div>
+
+    {% endif %}
+</div>

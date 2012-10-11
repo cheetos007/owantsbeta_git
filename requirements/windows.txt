@@ -1,0 +1,3 @@
+#windows requirements- since it's PITA to set up environment to compile Python extensions on windows, it's easier just
+#to specify links to precompiled binaries
+--requirement=base.txt

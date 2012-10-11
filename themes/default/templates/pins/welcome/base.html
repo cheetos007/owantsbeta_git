@@ -1,0 +1,13 @@
+{% extends "form_base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Welcome" %}{% endblock %}
+{% block form_title %}{% trans "Welcome wizard" %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pins/wizard.css">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ STATIC_URL }}js/pins/wizard.js"></script>
+{% endblock %}

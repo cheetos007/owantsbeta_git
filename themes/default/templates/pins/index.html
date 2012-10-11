@@ -1,0 +1,31 @@
+{% extends "fluid_base.html" %}
+{% load i18n ifsetting_tag sorl_thumbnail activity_stream %}
+
+
+{% block head_title %}{% trans "Latest owants" %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pins.css">
+{% endblock %}
+
+{% block extra_js %}
+  {% include "pins/_pin_grid_js.html" %}
+{% endblock %}
+
+{% block body %}
+
+        <div id="main-content-layout">
+            <ul id="pin-grid">
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <div class="user-events">
+                            <h3>{% trans "Your friend`s recent activities" %}</h3>
+                            {% activity_stream_for_user request.user %}
+                        </div>
+                    </li>
+                {% endif %}
+
+                {% include "pins/_pin_list.html" with owant_tab_type='want'%}
+            </ul>
+        </div>
+{% endblock %}

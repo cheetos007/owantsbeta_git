@@ -1,0 +1,15 @@
+{% load sorl_thumbnail %}
+<div class="pin-main-box">
+<div class="pin-head-wrapper">
+  <div class="pin-image-options">
+    <div>
+      {% thumbnail result.object.get_profile.image "266" crop="center" as im %}
+            <a href="{{result.object.get_absolute_url}}"><img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"></a>
+        {% endthumbnail %}
+    </div>
+    <br class="clear" />
+  </div>
+      <br class="clear" />
+      <p class="pin-content"><a href="{{result.object.get_absolute_url}}">{{result.object.get_full_name}}</a></p>
+</div>
+</div>

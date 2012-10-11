@@ -1,0 +1,60 @@
+<!--
+    <div id="main-content-layout">
+        <ul id="pin-grid">
+            {% if request.user.is_authenticated %}
+            <li>
+                <div class="user-events">
+                    <h3>{% trans "Your friend`s recent activities" %}</h3>
+                {% activity_stream_for_user request.user %}
+                </div>
+            </li>
+            {% endif %}
+
+        {% include "pins/_pin_list.html" with owant_tab_type='want'%}
+        </ul>
+    </div>
+    //-->
+
+
+<div id="main-content-layout">
+    <div id=”Tabs”>
+        <ul>
+            <li id=”li_wants″><a href="#" onclick=”calltab(‘wants′)”>Wants</a></li>
+            {% if request.user.is_authenticated %}
+                <li id=”li_owns″><a href="#" onclick=”calltab(‘owns′)”>Owns</a></li>
+            {% endif %}
+        </ul>
+        <div id=”Content_Area”>
+            <div id=”wants″>
+                <ul id="pin-grid">
+                    {% include "pins/_pin_list.html" with owant_tab_type='want'%}
+                </ul>
+            </div>
+            {% if request.user.is_authenticated %}
+                <div id=”owns″ style=”display: none;”>
+                <ul id="pin-grid">
+                    {% include "pins/_pin_list.html" with owant_tab_type='own'%}
+                </ul>
+                </div>
+            {% endif %}
+    </div>
+</div>
+</div>
+
+<script type=”text/javascript”>
+    function calltab(tabname) {
+        document.getElementById(‘owns′).style.display = ‘none’;
+        document.getElementById(‘wants′).style.display = ‘none’;
+        document.getElementById(‘li_owns′).setAttribute(“class”, “”);
+        document.getElementById(‘li_wants′).setAttribute(“class”, “”);
+        document.getElementById(tabname).style.display = ‘block’;
+        document.getElementById(‘li_’+tabname).setAttribute(“class”, “active”);
+    }
+</script>
+
+<ul class="tabbernav">
+    <li class="active"><a href="javascript:void(null)" onclick="">Wants</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="javascript:void(null)" onclick="">Owns</a></li>
+    {% endif %}
+</ul>

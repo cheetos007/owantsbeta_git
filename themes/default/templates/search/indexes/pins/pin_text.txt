@@ -1,0 +1,5 @@
+{{object.description}}
+{{object.domain.domain_name}}
+{{object.url}}
+{{object.board.name}}
+{{object.board.category.name}}

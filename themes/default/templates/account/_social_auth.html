@@ -1,0 +1,26 @@
+{% load i18n %}
+<ul class="login-buttons">
+    <li class="fb-iconset">
+        <a href="{% url socialauth_begin 'facebook' %}{{invite_parameters}}" class="fb-button">
+            <div class="fb-button-left"></div>
+            <div class="fb-button-middle">{% trans "Login With Facebook" %}</div>
+            <div class="fb-button-right"></div>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url socialauth_begin 'twitter' %}{{invite_parameters}}" class="tw-button">
+            <div class="tw-button-left"></div>
+            <div class="tw-button-middle">{% trans "Login With Twitter" %}</div>
+            <div class="tw-button-right"></div>
+        </a>
+    </li>
+
+</ul>
+<br class="clear" />
+
+<ul class="login-middle-border-box">
+    <li class="border">&nbsp;</li>
+    <li class="text">{% trans "or" %}</li>
+    <li class="border">&nbsp;</li>
+</ul>

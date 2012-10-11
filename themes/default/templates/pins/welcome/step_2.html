@@ -1,0 +1,50 @@
+{% extends "pins/welcome/base.html" %}
+{% load i18n sorl_thumbnail pin_tags %}
+
+
+{% block head_title %}{% trans "Choose people to follow" %}{% endblock %}
+{% block form_title %}{% trans "Suggested people to follow" %}{% endblock %}
+
+{% block form %}
+    <p>
+        {% trans "We think you might want to follow these people. If you don't like what they pin, you can unfollow them at any time!" %}
+    </p>
+    {% if error %}
+        <div class="alert-message error">
+            <p>{% trans "Please, select at least one category which you like to proceed!" %}</p>
+        </div>
+    {% endif %}
+
+        {% for c in selected_categories %}
+            <div class="category">
+                <h2>{{c}} {% trans "pins" %}</h2>
+                {% for u in c.users_to_follow %}
+                    <div class="user">
+                        <h3>{{u.get_full_name}}</h3>
+                            <div class="avatar selected" data-user-pk="{{u.pk}}">
+                                {% thumbnail u.get_profile.image "110x110" crop="center" as im %}
+                                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+                                {% endthumbnail %}
+                                <div class="tick"></div>
+                            </div>
+                            
+
+                            {% user_pins u %}
+                            
+                        
+                    </div>
+                {% endfor %}
+                
+            </div>
+            
+           
+        {% endfor %}
+         <form method="POST" action="" id="users-form">
+                {% csrf_token %}
+                <input type="hidden" name="selected_users" id="id_selected_users" value="" />
+                <input type="submit" class="btn success" value="{% trans "Proceed" %}" name="ok" />
+            </form>
+
+
+    </div>
+{% endblock %}

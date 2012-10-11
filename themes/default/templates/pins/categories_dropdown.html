@@ -1,0 +1,5 @@
+{% load i18n %}
+<li><a href="{% url home %}">{% trans "Everything" %}</a></li>
+{% for c in categories %}
+	<li {% if category.pk == c.pk %}class="active"{% endif %}><a href="{{c.get_absolute_url}}">{{c}}</a></li>
+{% endfor %}

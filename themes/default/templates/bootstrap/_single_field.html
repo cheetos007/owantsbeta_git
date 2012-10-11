@@ -1,0 +1,14 @@
+<dl>
+	<dt>
+		<label for="{{ field.auto_id }}">{{ field.label|safe }}</label>
+	</dt>
+    <dd>
+    	{{field}}
+    </dd>
+    <dd class="form-comment">
+    	{{field.help_text}}
+    	{% for error in field.errors %}
+            <span class="error-block-inline">{{ error }}</span>
+        {% endfor %}
+    </dd>
+</dl>

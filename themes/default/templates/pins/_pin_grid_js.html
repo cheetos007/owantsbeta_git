@@ -1,0 +1,21 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+      // Prepare layout options.
+      window.wkoptions = {
+        container: $('#pin-grid'), // Optional, used for some extra CSS styling
+        autoResize: true, // This will auto-update the layout when the browser window is resized.
+        offset: 15, // Optional, the distance between grid items
+        itemWidth: 280 // Optional, the width of a grid item
+      };
+      
+      // Get a reference to your grid items.
+      window.wkhandler = $('#pin-grid li');
+      
+      // Call the layout function.
+      window.wkhandler.wookmark(window.wkoptions);
+    });
+var MORE_PINS_URL = "{{request.path}}?ajax&start=";
+var PINS_START = 0;
+var PINS_PER_REQUEST = 25;
+</script>
+<script src="{{ STATIC_URL }}js/pins/scroll.load.js"></script>

@@ -1,0 +1,22 @@
+{% extends "fluid_base.html" %}
+{% load i18n ifsetting_tag sorl_thumbnail %}
+
+
+{% block head_title %}{{category}}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pins.css">
+{% endblock %}
+
+{% block extra_js %}
+  {% include "pins/_pin_grid_js.html" %}
+{% endblock %}
+
+
+{% block body %}
+    <div id="main-content-layout">
+        <ul id="pin-grid">
+        {% include "pins/_pin_list.html" %}
+        </ul>
+    </div>
+{% endblock %}

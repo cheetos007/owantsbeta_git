@@ -1,0 +1,25 @@
+{% extends "site_base.html" %}
+{% load i18n setting_tags %}
+
+{% block topbar_base %}{% endblock %}
+
+
+{% block body_base %}
+   <div id="contentwrapper">
+        <div id="login-content-layout" >
+            <div class="login-form-box round-corners ">
+                <div class="login-form-wrapper">
+                    <div class="logo"><a href="/">{% site_logo %}</a></div>
+                    
+                </div>
+
+                <div class="login-dashed-border">&nbsp;</div>
+
+                <div class="login-form-wrapper">
+                {% block body %}{% endblock %}
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

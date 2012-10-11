@@ -1,0 +1,21 @@
+{% extends "pins/popup/popup_base.html" %}
+{% load i18n %}
+{% block popup_id %}add-own-popup-content{% endblock %}
+
+{% block title %}
+<img src="{{STATIC_URL}}img/add-own-icon.png" alt="add-pin" />
+	<h1>{% trans "Add an Own" %}</h1>
+{% endblock %}
+
+{% block content %}
+<form action="" id="pin-url-form" method="post" class="add-pin-form jqtransform" >
+	<dl>
+		<dd><input type="text" class="" id="add-pin-website" value="{% trans "Enter website address" %}" /></dd>
+		<dd class="gray-submit">
+			<input type="submit" value="{% trans "Find your Owns" %}" class="" />
+		</dd>
+	</dl>
+
+</form>
+{% endblock %}
+

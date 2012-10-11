@@ -1,0 +1,11 @@
+{% extends "site_base.html" %}
+
+{% block body_base %}
+    	<div class="fluid-content">
+	        {% include "_messages.html" %}
+	        {% block body %}
+
+	        {% endblock %}
+	        <br/>
+        </div>
+{% endblock %}

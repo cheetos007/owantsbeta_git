@@ -1,0 +1,2 @@
+ {% load setting_tags %}
+ <a href="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://{{request.get_host}}{% url bookmarklet_js %}?r='+Math.random()*1000000);document.body.appendChild(e)})());" style="display:block;width:80px;margin:20px;text-align:center;color:#000;background-color: #E7F6FB; padding: 5px;border: 1px solid #555; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;">{% site_setting "bookmarklet_title" %}</a>

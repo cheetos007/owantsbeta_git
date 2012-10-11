@@ -1,0 +1,61 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load ifsetting_tag %}
+{% load account_tags %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        {% user_display user as user_display %}
+        <p><span class="warning">{% trans "Note" %}</span>: {% blocktrans %}you are already logged in as {{ user_display }}.{% endblocktrans %}</p>
+    {% else %}
+
+    {% include "account/_social_auth.html" %}
+
+
+        <div class="login-form">
+            <form action="{% url acct_login %}" method="post" class="jqtransform" >{% csrf_token %}
+                 {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <fieldset>
+                    {% if form.non_field_errors %}
+                        <dl><dd>
+                            {{form.non_field_errors}}
+                            </dd>
+                        </dl>
+                    {% endif %}
+                    <dl>
+                        <dd class="login-username">{{form.email}}
+                            {{form.email.errors}}</dd>
+                        
+                    </dl>
+                    <dl>
+                        <dd class="login-password">{{form.password}}
+                            {{form.password.errors}}</dd>
+                    </dl>
+                    <dl >
+                        <dd class="submit-login-button">
+                            <input type="submit"  name="" class="submit-login-button" value="{% trans "Sign In" %}"/>
+                        </dd>
+                        <dd class="forg-pass"><a href="{% url acct_passwd_reset %}" class="forg-pass">{% trans "Forgot your password?" %}</a></dd>
+                    </dl>
+                    <dl>
+                    <dd>
+                        {% url acct_signup as signup_url %}
+      <!--  <p>{% blocktrans %}Don't have an account? <a href="{{ signup_url }}">Sign up</a>!{% endblocktrans %}</p>-->
+                    </dd>
+                </fieldset>
+            </form>
+        </div>
+        {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $("#id_email").focus();
+</script>
+{% endblock %}

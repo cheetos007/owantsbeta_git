@@ -1,0 +1,26 @@
+{% extends "site_base.html" %}
+{% load i18n ifsetting_tag sorl_thumbnail comments bootstrap_tags %}
+
+
+{% block head_title %}{% trans "My Rooms" %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pins/boards.css">
+{% endblock %}
+
+{% block extra_js %}
+    {% include "pins/rooms/_board_grid_js.html" %}
+{% endblock %}
+{% block body %}
+        
+<div class="top-info-bar">
+    <ul id="info-bar-items">
+        <li class="active">
+           <a href="{% url add_board %}" class="round-corners btn">{% trans "Add a Room" %}</a>
+        </li>
+    </ul>
+    <div class="clear">&nbsp;</div>
+</div>
+
+{% include "pins/rooms/_board_list.html" %}
+{% endblock %}

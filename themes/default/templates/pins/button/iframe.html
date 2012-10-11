@@ -1,0 +1,140 @@
+{% load i18n setting_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            #button {
+                position: absolute;
+                background: url({{STATIC_URL}}img/pin-it-button.png);
+                font: 11px Arial, sans-serif;
+                text-indent: -9999em;
+                font-size: .01em;
+                color: #CD1F1F;
+                height: 25px;
+                width: 49px;
+                background-position: 0 0px;
+            }
+            #button:active, #button.pinned  {
+                background-position: 0 -54px !important;
+            }
+
+            #count_container {
+                position: relative;
+                z-index: 1;
+            }
+            body.none #count_container {
+                display: none;
+            }
+
+            #count_bubble {
+                position: absolute;
+                border: 1px solid #C9C5C5;
+                color: #000;
+                background-color: #FCF9F9;
+                border-radius: 1px;
+                top: 3px;
+                left: 53px;
+                height: 10px;
+                line-height: 10px;
+                padding: 2px 5px 4px 5px;
+                font: 10px Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                display: inline-block;
+            }
+            body #count_pointer {
+                position: absolute;
+                left: 49px;
+                height: 18px;
+                text-indent: -9999em;
+                font-size: .01em;
+                width: 4px;
+                background: url({{STATIC_URL}}img/pin-it-button.png);
+                background-position: -49px 0px;
+            }
+
+
+            body.vertical #button {
+                top: 33px;
+            }
+            body.vertical #count_pointer {
+                top: 29px;
+                height: 4px;
+                left: 0px;
+                width: 49px;
+                background-position: 0 -25px;
+            }
+            body.vertical #count_bubble {
+                left: 5px;
+                height: 19px;
+                width: 39px;
+                padding: 5px 0 0;
+                font-size: 12px;
+                text-align: center;
+            }
+        </style>
+        <script type="text/javascript">
+            var countLayout = 'horizontal';
+            var alwaysShowCount = false;
+
+            function pinIt(pinItButton, pinUrl) {
+                return function(e) {
+                    var t;
+                    if (e.target) t = e.target;
+                    else t = e.srcElement;
+                    if (t.id != pinItButton.id)
+                        return false;
+                    var pinUrl = '{{pin_button_url}}?media='+encodeURIComponent('{{params.image_url}}')+'&src='+encodeURIComponent('{{params.url}}');
+                    var desc = '{{params.description}}';
+                    if (desc) {
+                        pinUrl+='&description='+desc;
+                    }
+                    var modal = window.open(pinUrl, 'pinItPopup', 'height=650,width=700');
+
+                    var wait = function() {
+                        setTimeout(function() {
+                            if (modal == null) {
+                                failure();
+                                return;
+                            }
+                            if (modal.closed)
+                                pinItButton.setAttribute('class', 'pinned');
+                            else
+                                wait();
+                        }, 25);
+                    };
+
+                    wait();
+                    return false;
+                };
+            }
+
+            window.onload = function() {
+                var pinItButton = document.getElementById('button');
+
+                var pinUrl = '{{pin_url}}';
+
+                // Button click handler
+                if (document.addEventListener)
+                    pinItButton.addEventListener('click', pinIt(pinItButton, pinUrl), false);
+                else if (document.attachEvent)
+                    pinItButton.attachEvent('onclick', pinIt(pinItButton, pinUrl));
+            };
+        </script>
+    </head>
+    <body class="{{params.button_type}}">
+        {% if not params %}
+            {{form.errors}}
+        {% else %}
+        {% site_setting "site_name" as site_name %}
+            <a href="javascript:void(0)" id="button" title="{% blocktrans %}Pin it on {{site_name}}{% endblocktrans %}">Pin it</a>
+            <div id="count_container">
+                <div id="count_pointer">&laquo;</div>
+                <div id="count_bubble">{{pin_count}}</div>
+            </div>
+        {% endif %}
+    </body>
+</html>

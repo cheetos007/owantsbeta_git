@@ -1,0 +1,24 @@
+{% extends "pins/popup/popup_base.html" %}
+{% load i18n bootstrap_tags %}
+{% block popup_id %}create-board-popup{% endblock %}
+
+{% block title %}
+<img src="{{STATIC_URL}}img/board-pin-icon.png" alt="add-pin" /> 
+	<h1>{% trans "Create A Room" %}</h1>
+{% endblock %}
+
+{% block content %}
+<form action="{% url add_board %}" method="post" class="add-board-form">{% csrf_token %}
+	{{board_form|as_bootstrap	}}
+	<dl>
+		<dt>&nbsp</dt>
+		<dd class="submit-button">
+			<input type="submit" value="{% trans "Create Room" %}"/>
+		</dd>
+	</dl>
+</form>
+{% endblock %}
+
+
+
+

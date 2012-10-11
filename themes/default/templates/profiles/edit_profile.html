@@ -1,0 +1,187 @@
+{% extends "form_base.html" %}
+{% load i18n setting_tags sorl_thumbnail %}
+
+{% block head_title %}{% trans "Edit profile" %}{% endblock %}
+
+{% block form_title %}{% trans "Edit profile" %}{% endblock %}
+
+{% block extra_css %}
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery.tzCheckbox.css" />
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{{STATIC_URL}}js/jquery.tzCheckbox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.modify-checkbox-style').tzCheckbox({labels:['{% trans "On" %}','{% trans "Off" %}']});
+			new AjaxUpload('ajax_upload', {action: '{% url upload_profile_image %}', name: 'image',responseType: 'json',
+			onSubmit: function (file, extension) {
+				$('.setings-profile-image img')[0].src = "{{STATIC_URL}}img/ajax-loader.gif";
+			},
+			 onComplete: function (file, resp) {
+				if (resp) {
+					$('.setings-profile-image img')[0].src=resp['thumbnail'];
+				}
+			}});
+		});
+	</script>
+{% endblock %}
+
+{% block form %}
+	<form action="" method="post" enctype="multipart/form-data" id="editPinForm" class="jqtransform">
+		{% csrf_token %}
+		<fieldset style="float:left;">
+			<br class="clear" />
+			{% include "bootstrap/_single_field.html" with field=form.email %}
+			<!--
+	        <dl>
+	            <dt>
+	            	<label for="ch_email_settings">&nbsp;</label>
+	            </dt>
+	            <dd>
+	            	<a href="#" class="round-corners grey-button">Change Email Settings &nbsp;</a>
+	            </dd>
+
+	        </dl>
+	        //-->
+	        <dl>
+	            <dt>
+	            	<label for="ch_password">&nbsp;</label>
+	            </dt>
+	            <dd>
+	            	<a href="{% url acct_passwd %}?next={{request.path}}" class="round-corners grey-button">{% trans "Change Password" %} &nbsp;</a>
+	            </dd>
+
+	        </dl>
+	        {% include "bootstrap/_single_field.html" with field=form.first_name %}
+	        {% include "bootstrap/_single_field.html" with field=form.last_name %}
+	        {% include "bootstrap/_single_field.html" with field=form.username %}
+	        {% include "bootstrap/_single_field.html" with field=form.about %}
+	        {% include "bootstrap/_single_field.html" with field=form.location %}
+	        {% include "bootstrap/_single_field.html" with field=form.website %}
+	        <dl>
+	            <dt>
+	            	<label for="web">{% trans "Image" %}</label>
+	            </dt>
+	            <dd>
+	            	<div class="round-corners setings-profile-image">
+	            		{% thumbnail request.user.get_profile.image "160" as im %}
+		                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+		                {% endthumbnail %}
+	            	</div>
+	            </dd>
+	            <dd>
+	            	<a href="#" id="ajax_upload" class="round-corners grey-button">{% trans "Upload An Image" %} &nbsp;</a>
+	            	<!--<a href="#" class="round-corners grey-button">{% trans "Refresh From Facebook" %} &nbsp;</a>	//-->
+	            </dd>
+	        </dl>
+	        <dl>
+	            <dt>
+	            	<label for="web">{% trans "Facebook" %}</label>
+	            </dt>
+	        {% if 'facebook' in social_auth.not_associated %}
+	        	<dd>
+	        	<ul class="login-buttons">
+			    <li>
+			        <a href="{% url socialauth_associate_begin 'facebook' %}?next={{request.path}}" class="fb-button">
+			            <div class="fb-button-left"></div>
+			            <div class="fb-button-middle">{% trans "Link Facebook account" %}</div>
+			            <div class="fb-button-right"></div>
+			        </a>
+			    </li>
+				</ul>
+			</dd>
+
+	        {% else %}
+	        
+	            <dd>
+	            	<input type="checkbox" name="link_facebook" checked="checked" class="modify-checkbox-style jqTransformHidden" />
+	            </dd>
+	            <dd class="form-comment2">
+	            	{% trans "Link to Facebook" %}
+	            </dd>
+	        {% endif %}
+	        </dl>
+	        <!--
+	        <dl>
+	            <dt>
+	            	<label for="web">&nbsp;</label>
+	            </dt>
+	            <dd>
+	            	<input type="checkbox" name="web" id="web" class="modify-checkbox-style" />
+	            </dd>
+	            <dd class="form-comment2">
+	            	{% site_setting "site_name" as site_name %}
+	            	{% blocktrans %}Add {{site_name}} to Facebook Timeline{% endblocktrans %}
+	            </dd>
+	        </dl>
+	        
+	        <dl>
+	            <dt>
+	            	<label for="delete">&nbsp;</label>
+	            </dt>
+	            <dd>
+	            	<a href="#" class="round-corners grey-button">{% trans "Find Facebook Friends on" %} {% site_setting "site_name" %} &nbsp;</a>
+	            </dd>
+	        </dl>
+	        //-->
+	        <dl>
+	            <dt>
+	            	<label for="web">{% trans "Twitter" %}</label>
+	            </dt>
+	        {% if 'twitter' in social_auth.not_associated %}
+	        	<dd>
+	        	<ul class="login-buttons">
+			    <li>
+			        <a href="{% url socialauth_associate_begin 'twitter' %}?next={{request.path}}" class="tw-button">
+			            <div class="tw-button-left"></div>
+			            <div class="tw-button-middle">{% trans "Link Twitter account" %}</div>
+			            <div class="tw-button-right"></div>
+			        </a>
+			    </li>
+				</ul>
+			</dd>
+
+	        {% else %}
+	        
+	            <dd>
+	            	<input type="checkbox" name="link_twitter" checked="checked" class="modify-checkbox-style jqTransformHidden" />
+	            </dd>
+	            <dd class="form-comment2">
+	            	{% trans "Link to Twitter" %}
+	            </dd>
+	        {% endif %}
+	        </dl>
+	        <!--
+	        <dl>
+	            <dt>
+	            	<label for="web">{% trans "Visibility" %}</label>
+	            </dt>
+	            <dd>
+	            	<input type="checkbox" name="web" id="web" class="modify-checkbox-style" />
+	            </dd>
+	            <dd class="form-comment2">
+	            	{% trans "Hide your owants profile from search engines" %}
+	            </dd>
+	        </dl>
+	        //-->
+	        <dl>
+	            <dt>
+	            	<label for="delete">{% trans "Delete" %}</label>
+	            </dt>
+	            <dd>
+	            	<a href="{% url delete_profile %}" class="round-corners grey-button" >{% trans "Delete Account" %} &nbsp;</a>
+	            </dd>
+	        </dl>
+	        <dl>
+	            <dt>
+	            	<label for="delete">&nbsp;</label>
+	            </dt>
+	            <dd>
+	            	<input type="submit" name="submit" id="submit" value="{% trans "Submit" %}" />
+	            </dd>
+
+	        </dl>
+	    </fieldset>
+	</form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% load compress setting_tags %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block head_title_base %}{% block head_title %}{% endblock %}{% if SITE_NAME %} : {{ SITE_NAME }}{% endif %}{% endblock %}</title>
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+        {% compress css %}
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/style.css" />
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/application-style.css" />
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jqtransform.css" />
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pin_it.css">
+            <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/colorbox.css">
+            {% block extra_css %}{% endblock %}
+        {% endcompress %}
+        {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-1.7.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.form.js"></script>
+        {% block extra_js %}{% endblock %}
+
+        {% endcompress %}
+
+        {% block extra_head_base %}
+            {% block extra_head %}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
+        {% block body %}
+
+        {% endblock %}
+    </body>
+</html>

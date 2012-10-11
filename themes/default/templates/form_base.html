@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+
+{% block body %}
+<div id="main-box-layout">
+	<div class="round-corners page-info-box {% block info_box_class %}{% endblock %}">
+		<div class="page-box-wraper">
+			<div class="page-title-box">
+				<h1>{% block form_title %}{% endblock %}</h1>
+			</div>
+			
+			<div class="main-page-info-box">
+				{% block form %}
+
+				{% endblock %}
+
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+</div>
+</div>
+{% endblock %}

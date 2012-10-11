@@ -1,0 +1,82 @@
+{% load i18n sorl_thumbnail pin_tags comments %}
+
+<div id="maincontainer">
+	<div id="popup-big"> 
+		<div  class="round-corners popup-big-layout">
+			<div class="top">
+				<span class="title">
+					 {% with image=pin.board.user.get_profile.image %}
+                        {% thumbnail image "50x50" crop="center" as im %}
+                        <a href="{{pin.board.user.get_absolute_url}}"><img src="{{ im.url }}" class="user-thumbnail" width="{{ im.width }}" height="{{ im.height }}"/></a>
+                        {% endthumbnail %}
+                    {% endwith %}
+					<h1><a href="{{pin.board.user.get_absolute_url}}">{{pin.board.user.get_full_name}}</a></h1>
+				</span>
+				<a href="#" class="popup-close-button"><span class="close">&nbsp;</span></a>
+				<br class="clear" />
+			</div>
+
+			<div class="red-bar">
+				<span class="pin-information clearfix">
+					{% blocktrans with time_ago=pin.created_datetime|timesince%}
+                    Pinned {{time_ago}} ago on
+                    {% endblocktrans %} 
+
+                    <a href="{{pin.board.get_absolute_url}}"><em>{{pin.board}}</em></a> {% if pin.domain %}{% trans "via" %} {{pin.domain}}{% endif %}
+				</span>
+				{% if pin.board.user == request.user %}
+					<span class="popup-pin-actions">
+						<a href="{% url edit_pin pin.pk %}">{% trans "Edit pin" %}</a>
+						<a href="{% url delete_pin pin.pk %}">{% trans "Delete pin" %}</a>
+					</span>
+				{% endif %}
+				<br class="clear"/>
+			</div>
+
+			<div class="pin-content-box">
+				<div class="pin-big-popup-image-box">
+					 {% include "pins/_pin_media.html" %}
+
+				</div>
+				<p class="pin-content">{{pin.description}}</p>
+
+				<div class="clear">&nbsp;</div>
+				{% get_comment_form for pin as form %}
+				{% include "comments/popup_form.html" %}
+				{% include "comments/popup_list.html" %}
+				
+				<hr class="popup-line" />
+
+				<div class="popup-pin-info-box">
+					<table class="pin-more-info">
+						<tr>
+							<td>
+								<h3>{% trans "Pinned onto the board" %}</h3>
+								<h1>{{pin.board}}</h1>
+						        <a href="{{pin.board.get_absolute_url}}">{% spaceless %}
+						            {% for p in board_pins %}
+						                {% thumbnail p.get_image "75x75" crop="center" as im %}
+						                    <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+						                {% endthumbnail %}
+						            {% endfor %}
+						        {% endspaceless %}</a>
+							</td>
+
+						</tr>
+					</table>
+				</div>
+
+				<hr class="popup-line" />
+
+				<div class="popup-pin-info-box">
+					<h3>{% blocktrans count counter=pin.number_of_repins %}{{counter}} Repin{% plural %}{{counter}} Repins{% endblocktrans %}, 
+						{% blocktrans count counter=pin.number_of_likes %}{{counter}} Like{% plural %}{{counter}} Likes{% endblocktrans %}
+
+					</h3>
+				</div>
+
+			</div>
+		<br class="clear" />
+		</div>
+	</div>
+</div>

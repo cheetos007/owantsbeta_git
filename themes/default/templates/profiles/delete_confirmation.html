@@ -1,0 +1,32 @@
+{% extends "form_base.html" %}
+{% load i18n setting_tags bootstrap_tags %}
+
+{% block head_title %}{% trans "Delete profile" %}{% endblock %}
+
+{% block form_title %}{% trans "Delete profile" %}{% endblock %}
+
+{% block form %}
+	<form action="" method="post" id="editPinForm" class="jqtransform">
+		{% csrf_token %}
+		{% site_setting "site_name" as site_name %}
+		<p class="delete-warning">{% blocktrans %}You are about to delete your profile from {{site_name}}.<br/>
+			Once this is done, your profile will be gone forever.
+		{% endblocktrans %}
+		<br/><br/></p>
+		<p>{% blocktrans %}If you still want to proceed, please enter your password to confirm what you're about to do.{% endblocktrans %}</p>
+		<fieldset style="float:left;">
+			<br class="clear" />
+			{{form|as_bootstrap}}
+			<dl>
+	            <dt>
+	            	<label for="delete">&nbsp;</label>
+	            </dt>
+	            <dd>
+	            	<input type="submit" name="submit" id="submit" value="{% trans "Delete my profile" %}" /><br/>
+	            	<a href="{% url edit_profile %}">{% trans "No thanks, take me back!" %}</a>
+	            </dd>
+
+	        </dl>
+	    </fieldset>
+	</form>
+{% endblock %}

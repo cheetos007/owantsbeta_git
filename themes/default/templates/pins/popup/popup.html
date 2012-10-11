@@ -1,0 +1,52 @@
+{% load i18n %}
+
+<div id="create-pin-popup-content">
+	<div id="popup-add"> 
+		<div class="round-corners  popup-add-layout">
+			<div class="top">
+				<span class="title"><h1>{% trans "Add" %}</h1></span>
+				<a href="#" class="popup-close-button"><span class="close">&nbsp;</span></a>
+			</div>
+
+			<div class="red-bar">
+				<span>
+					{% trans 'Own or Want products from any website as you browse the web with the options below.' %}
+				</span>
+			</div>
+
+			<div class="option-box">
+				<ul class="popup-large-buttons">
+					<li>
+						<a href="#" id="popup-add-own-button" >
+							<img src="{{STATIC_URL}}img/add-own-icon.png" alt="{% trans "Add an Own" %}" />
+							<span>{% trans "Add an Own" %}</span>
+						</a>
+					</li>
+                    <li class="bg-active">
+                        <a href="#" id="popup-add-want-button" >
+                            <img src="{{STATIC_URL}}img/add-want-icon.png" alt="{% trans "Add a Want" %}" />
+                            <span>{% trans "Add a Want" %}</span>
+                        </a>
+                    </li>
+					<!--
+                    <li>
+						<a href="#" id="popup-upload-pin-button" >
+							<img src="{{STATIC_URL}}img/upload-pin-icon.png" alt="{% trans "Upload a Pin" %}" />
+							<span>{% trans "Upload a Pin" %}</span>
+						</a>
+					</li>
+					-->
+					<li>
+						<a href="#" id="popup-create-board-button" >
+							<img src="{{STATIC_URL}}img/room-pin-icon.png" alt="{% trans "Add a Room" %}" />
+							<span>{% trans "Create a Room" %}</span>
+						</a>
+					</li>
+				</ul>
+
+				<br class="clear" />
+			</div>
+
+		</div>
+	</div>
+</div>

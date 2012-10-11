@@ -1,0 +1,57 @@
+{% extends "fluid_base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% blocktrans %}Search results for: {{query}}{% endblocktrans %}{% endblock %}
+
+{% block extra_js %}
+    {% include "pins/_pin_grid_js.html" %}
+{% endblock %}
+
+{% block body %}
+<div id="contentwrapper">
+ <div class="top-info-bar">
+             <form method="get" action="." class="jqtransform">
+                    <div class="inputRow"><label for="id_q">{{form.q.label}}:</label>{{form.q}}</div>
+                    <div class="selectRow"><label for="id_models">{{form.models.label}}:</label>{{form.models}}</div>
+                    <div class="formRow">
+                        <input type="submit" value="{% trans "Search"%}">
+                    </div>
+            <div class="search-string"><span>{% blocktrans %}Search results for: {{query}}{% endblocktrans %}</span></div>
+            <div class="clear">&nbsp;</div>
+        </div>
+<div id="board-info-box">
+   
+     {% if query %}
+        <ul id="pin-grid">
+        {% for result in page.object_list %}
+        <li>
+            {% if result.content_type == "pins.pin" %}
+            {% include "search/includes/pin.html" %}
+            {% endif %}
+            {% if result.content_type == "pins.board" %}
+            {% include "search/includes/board.html" %}
+            {% endif %}
+            {% if result.content_type == "auth.user" %}
+            {% include "search/includes/user.html" %}
+        </li>
+        {% endif %}
+        
+    {% empty %}
+        <li>{% trans "No results found." %}</li>
+    {% endfor %}
+    </ul>
+
+    {% if page.has_previous or page.has_next %}
+        <div>
+            {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+            |
+            {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+        </div>
+    {% endif %}
+{% else %}
+    {# Show some example queries to run, maybe query syntax, something else? #}
+{% endif %}
+    <div class="clear">&nbsp;</div>
+</div>
+</div>
+{% endblock %}

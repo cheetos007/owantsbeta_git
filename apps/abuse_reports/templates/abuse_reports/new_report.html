@@ -1,0 +1,18 @@
+{% extends "base_email.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans "New abuse report" %}</h1>
+<p>{% if report.created_user %}{{report.created_user}}{% else %}{% trans "Someone" %}{% endif %}
+	{% blocktrans with ctype=report.content_type reason=report.reason description=report.description %}
+	reported {{ctype}} for the reason of: {{reason}}.<br/>
+	The following description was included with report: <br/>
+	<blockquote>{{description}}</blockquote>
+	<br/>{% endblocktrans %}
+
+	<a href="http://{{SITE.domain}}{{report.get_absolute_url}}">{% trans "Link to report" %}</a><br/>
+	<a href="http://{{SITE.domain}}{{report.content_object.get_absolute_url}}">{% trans "Link to reported object" %}</a>
+
+	
+
+{% endblock %}

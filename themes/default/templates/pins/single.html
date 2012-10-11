@@ -1,0 +1,186 @@
+{% extends "site_base.html" %}
+{% load i18n ifsetting_tag sorl_thumbnail comments pin_tags setting_tags ctype_tags %}
+
+
+{% block head_title %}{{pin.board}} / {{pin.description}}{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/pins.css">
+{% endblock %}
+
+{% block body %}
+        <div  class="round-corners popup-big-layout single-pin-layout">
+            <div class="top">
+                <span class="title">
+                     {% with image=pin.board.user.get_profile.image %}
+                        {% thumbnail image "50x50" crop="center" as im %}
+                        <a href="{{pin.board.user.get_absolute_url}}"><img src="{{ im.url }}" class="user-thumbnail" width="{{ im.width }}" height="{{ im.height }}"/></a>
+                        {% endthumbnail %}
+                    {% endwith %}
+                    <h1>{{pin.board.user.get_full_name}}</h1>
+                </span>
+
+                {% if request.user.pk == pin.board.user.pk %}
+                <span class="pin-actions">
+                    <a class="btn" href="{% url edit_pin pin.pk %}">{% trans "Edit" %}</a>
+                    <a class="btn danger" href="{% url delete_pin pin.pk %}">{% trans "Delete" %}</a>
+                </span>
+                {% endif %}
+                <br class="clear" />
+            </div>
+
+            <div class="red-bar">
+                <span>
+                    {% blocktrans with time_ago=pin.created_datetime|timesince%}
+                    Pinned {{time_ago}} ago on
+                    {% endblocktrans %} 
+
+                    <a href="{{pin.board.get_absolute_url}}"><em>{{pin.board}}</em></a> {% if pin.domain %}{% trans "via" %} {{pin.domain}}{% endif %}
+                </span>
+            </div>
+
+            <div class="pin-content-box">
+
+                <!--
+                <div class="pin-big-popup-image-box">
+                     {% include "pins/_pin_media.html" %}
+                </div>
+                //-->
+
+                <p class="pin-content">{{pin.description}}</p>
+
+                <!--
+                 <p class="share-links">
+                   {% include "pins/_share_links.html" %}
+
+                   {% content_type pin as pin_ctype %}
+                   <a href="{% url report_abuse pin_ctype pin.pk %}" class="btn">{% trans "Report abuse" %}</a>
+                 </p>
+                //-->
+
+                <hr class="popup-line" />
+
+                <!--
+                <div class="popup-pin-info-box">
+                    <table class="pin-more-info">
+                        <tr>
+                            <td>
+                                <h3>{% trans "Pinned onto the board" %}</h3>
+                                <h1>{{pin.board}}</h1>
+                                <a href="{{pin.board.get_absolute_url}}">{% spaceless %}
+                                    {% for p in board_pins %}
+                                        {% thumbnail p.get_image "75x75" crop="center" as im %}
+                                            <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                                        {% endthumbnail %}
+                                    {% endfor %}
+                                {% endspaceless %}</a>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                //-->
+
+                <!--
+                <hr class="popup-line" />
+
+                <div class="popup-pin-info-box">
+                    <h3>{% blocktrans count counter=pin.number_of_repins %}{{counter}} Repin{% plural %}{{counter}} Repins{% endblocktrans %}, 
+                        {% blocktrans count counter=pin.number_of_likes %}{{counter}} Like{% plural %}{{counter}} Likes{% endblocktrans %}
+
+                    </h3>
+                </div>
+                //-->
+
+                <div class="clear">&nbsp;</div>
+                {% render_comment_form for pin %}
+                {% include "comments/list.html" %}
+
+            </div>
+        <br class="clear" />
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+    <div class="row single-pin">
+      <div class="span5">
+        <div class="sidebar">
+        <p>{{pin.board}}</p>
+        <a href="{{pin.board.get_absolute_url}}">
+            {% for p in board_pins %}
+                {% thumbnail p.get_image "75x75" crop="center" as im %}
+                    <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                {% endthumbnail %}
+            {% endfor %}
+        </a>
+        </div>
+      </div>
+      <div class="span11">
+        <div class="pin-container">
+            <div class="pin-author row">
+                <a href="{{pin.board.user.get_absolute_url}}">
+                    {% with image=pin.board.user.get_profile.image %}
+                        {% thumbnail image "50x50" crop="center" as im %}
+                        <img src="{{ im.url }}" class="user-thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                        {% endthumbnail %}
+                    {% endwith %}
+
+                <strong>{{pin.board.user.get_profile.name}}</strong></a>
+                
+                <p>{% blocktrans with time_ago=pin.created_datetime|timesince%}
+                    Shared {{time_ago}} ago on
+                    {% endblocktrans %} 
+
+                    <a href="{{pin.board.get_absolute_url}}"><em>{{pin.board}}</em></a> {% if pin.domain %}{% trans "via" %} {{pin.domain}}{% endif %}
+
+                </p>
+                {% if pin.is_repin %}
+                    <p>{% trans "This is a repin from" %} <a href="{{pin.source_pin.board.get_absolute_url}}">{{pin.source_pin.created_user}} / {{pin.source_pin.board}}</p>
+                {% endif %}
+            </div>
+
+            {% if request.user.pk == pin.created_user.pk %}
+                <div class="pin-actions row">
+                    <a class="btn" href="{% url edit_pin pin.pk %}">{% trans "Edit" %}</a>
+                    <a class="btn danger" href="{% url delete_pin pin.pk %}">{% trans "Delete" %}</a>
+                </div>
+            {% endif %}
+            {% thumbnail pin.get_image "550" as im %}
+                {% pin_target_url pin "pin_url" %}
+                <a href="{{pin_url|default:"#"}}" {% if pin_url %}target="_blank"{% endif %} class="pin"><img src="{{ im.url }}" style="margin:{{ im|margin:"550" }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/></a>
+            {% endthumbnail %}
+            <p class="pin-description">{{pin.description}}</p>
+            <p class="share-links">
+               {% include "pins/_share_links.html" %}
+
+               {% content_type pin as pin_ctype %}
+               <a href="{% url report_abuse pin_ctype pin.pk %}" class="btn">{% trans "Report abuse" %}</a>
+            </p>
+            {% render_comment_form for pin %}
+            {% include "comments/list.html" %}
+        </div>
+      </div>
+    </div>//-->
+{% endblock %}

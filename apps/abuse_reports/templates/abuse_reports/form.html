@@ -1,0 +1,28 @@
+{% extends "form_base.html" %}
+{% load i18n bootstrap_tags %}
+
+
+{% block head_title %}{% trans "Submit abuse report" %}{% endblock %}
+{% block form_title %}{% trans "Submit abuse report" %}{% endblock %}
+
+{% block form %}
+<p>
+	{% blocktrans %}
+		Please choose the reason why you want to report this object for abuse, and enter a brief description why do you think this object should be removed.
+	{% endblocktrans %}
+	</p>
+        <form method="POST" action="" class="jqtransform abuse-form">
+            {% csrf_token %}
+            <fieldset>
+                {{ form|as_bootstrap }}
+            <dl>
+                <dt><label>&nbsp;</label></dt>
+                <dd>
+                    <input type="submit" value="{% trans "Submit report" %}"/>
+                </dd>
+            </dl>
+            </fieldset>
+            
+                
+        </form>
+{% endblock %}

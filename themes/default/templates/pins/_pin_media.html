@@ -1,0 +1,25 @@
+{% load i18n sorl_thumbnail pin_tags %}
+
+{% if not pin.video_id %}
+	{% thumbnail pin.get_image "626" as im %}
+	    {% pin_target_url pin "pin_url" %}
+	    <a href="{{pin_url|default:"#"}}" {% if pin_url %}target="_blank"{% endif %} class="pin"><img src="{{ im.url }}" style="width: {{im.width}}px; margin:10px auto;" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/></a>
+	{% endthumbnail %}
+{% else %}
+	<div class="pin-video-container">
+		{{pin.get_video_markup}}
+	</div>
+{% endif %}
+
+            <div class="options-buttons video-buttons">
+                <a href="#" title="{% trans "Repin" %}" data-pin-pk="{{pin.pk}}" class="round-corners option-button repin-pin">
+      <span class="option-repin">{% trans "Repin" %} ({{pin.get_number_of_repins}})</span>
+    </a>
+    <a href="#" title="{% trans "Like" %}" data-pin-pk="{{pin.pk}}" class="round-corners option-button like-pin">
+      <span class="option-like">{% trans "Like" %} (<span class="number">{{pin.get_number_of_likes}}</span>)</span>
+    </a>
+    <a href="{{pin.get_absolute_url}}" title="{% trans "Comments" %}" class="round-corners option-button">
+      <span class="option-comment">{% trans "Comments" %}</span>
+    </a>
+                
+            </div>

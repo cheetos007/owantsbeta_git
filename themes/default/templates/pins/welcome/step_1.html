@@ -1,0 +1,40 @@
+{% extends "pins/welcome/base.html" %}
+{% load i18n sorl_thumbnail %}
+
+{% block form_title %}{% trans "Choose categories you're interested in" %}{% endblock %}
+
+{% block form %}
+
+<p>
+    {% trans "Please click on the items you like. We will suggest you to follow some people we think you might like based on the selection." %}
+</p>
+    {% if error %}
+       <div class="alert-message error">
+  <p>{% trans "Please select at least one category which you like to proceed!" %}</p>
+</div>
+    {% endif %}
+    <ul id="pin-grid" class="categories">
+        {% for c in categories %}
+            
+                <li>
+                    <a href="#" data-category-id="{{c.pk}}">
+                        <span class="title">{{c.name}}</span>
+                        {% thumbnail c.image "266" crop="center" as im %}
+                        <img src="{{ im.url }}" class="thumbnail" width="{{ im.width }}" height="{{ im.height }}"/>
+                        {% endthumbnail %}
+                        <div class="tick"></div>
+                        </a>
+                </li>
+            
+           
+        {% endfor %}
+    </ul>
+         <form method="POST" action="" id="categories-form">
+                {% csrf_token %}
+                <input type="hidden" name="selected_categories" id="id_selected_categories" value="" />
+                <input type="submit" class="btn success" value="{% trans "Proceed" %}" name="ok" />
+            </form>
+
+
+    </div>
+{% endblock %}
